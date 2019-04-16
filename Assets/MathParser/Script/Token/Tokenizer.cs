@@ -7,11 +7,22 @@ namespace MathExpParser
     public class Tokenizer
     {
 
+        List<Token> tokens = new List<Token>();
+        List<string> numberBuffer = new List<string>();
+        List<string> letterBuffer = new List<string>();
+
+        string fullLetterString
+        {
+            get {
+                return System.String.Join("", letterBuffer.ToArray());
+            }
+        }
+
+
         public List<Token> Parse(string p_raw_expression) {
-            List<Token> tokens = new List<Token>();
+            Clear();
 
             p_raw_expression = Regex.Replace(p_raw_expression, StringFlag.RegexSyntax.IgnoreSpace, "");
-            UnityEngine.Debug.Log(p_raw_expression);
 
 
             for (int i = 0; i < p_raw_expression.Length; i++) {
@@ -19,34 +30,95 @@ namespace MathExpParser
 
                 if (IsNumber(part))
                 {
-                    tokens.Add(new Token(part, Token.Types.Number));
+                    numberBuffer.Add(part);
                 }
+
+                else if (part == ".") {
+                    numberBuffer.Add(part);
+                }
+
                 else if (IsVariable(part))
                 {
-                    tokens.Add(new Token(part, Token.Types.Variable));
+                    if (numberBuffer.Count > 0) {
+                        tokens.AddRange(RetrieveNumberBuffer());
+                        tokens.Add(new Token("*", Token.Types.Operator));
+                    }
+                    letterBuffer.Add(part);
+                    //tokens.Add(new Token(part, Token.Types.Variable));
                 }
                 else if (IsOperator(part))
                 {
+                    tokens.AddRange(RetrieveNumberBuffer());
+                    tokens.AddRange(RetrieveLetterBuffer());
+
                     tokens.Add(new Token(part, Token.Types.Operator));
                 }
                 else if (isLeftParenthesis(part))
                 {
+                    //If the char before leftParenthesis is letter, its  a function
+                    if (letterBuffer.Count > 0)
+                    {
+                        tokens.Add(new Token(fullLetterString, Token.Types.Function));
+                        letterBuffer.Clear();
+                    }
+                    else if (numberBuffer.Count > 0) {
+                        tokens.AddRange(RetrieveNumberBuffer());
+                        tokens.Add(new Token("*", Token.Types.Operator));
+                    }
+
                     tokens.Add(new Token(part, Token.Types.LeftParenthesis));
                 }
                 else if (isRightParenthesis(part))
                 {
+                    tokens.AddRange(RetrieveNumberBuffer());
+                    tokens.AddRange(RetrieveLetterBuffer());
+
                     tokens.Add(new Token(part, Token.Types.RightParenthesis));
                 }
                 else if (IsComma(part))
                 {
+                    tokens.AddRange(RetrieveNumberBuffer());
+                    tokens.AddRange(RetrieveLetterBuffer());
+
                     tokens.Add(new Token(part, Token.Types.ArgumentSeperator));
                 }
             }
+
+            tokens.AddRange(RetrieveNumberBuffer());
+            tokens.AddRange(RetrieveLetterBuffer());
+
             UnityEngine.Debug.Log(tokens.Count);
 
             return tokens;
         }
 
+        private List<Token> RetrieveNumberBuffer() {
+            var r_tokens = new List<Token>();
+            if (numberBuffer.Count > 0) {
+                string fullDigitalString = System.String.Join("", numberBuffer.ToArray());
+
+                r_tokens.Add(new Token(fullDigitalString, Token.Types.Number));
+            }
+
+            numberBuffer.Clear();
+            return r_tokens;
+        }
+
+        private List<Token> RetrieveLetterBuffer() {
+            int length = letterBuffer.Count;
+            var r_tokens = new List<Token>();
+            for (int i = 0; i < length; i++) {
+                r_tokens.Add(new Token(letterBuffer[i], Token.Types.Variable));
+
+                if (i < length - 1) {
+                    r_tokens.Add(new Token("*", Token.Types.Operator));
+                }
+            }
+
+            letterBuffer.Clear();
+
+            return r_tokens;
+        }
 
         #region Qualifier Method
         private bool IsComma(string p_char)
@@ -83,10 +155,18 @@ namespace MathExpParser
 
         #endregion
 
+
+
         public void Debug(List<Token> tokens) {
             foreach(Token t in tokens) {
                 UnityEngine.Debug.Log(t._type.ToString("g") +" , " + t._value);
             }
+        }
+
+        private void Clear() {
+            tokens.Clear();
+            numberBuffer.Clear();
+            letterBuffer.Clear();
         }
     }
 }

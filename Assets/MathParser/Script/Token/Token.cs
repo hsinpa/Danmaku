@@ -22,7 +22,8 @@ namespace MathExpParser
             Operator,
             LeftParenthesis,
             RightParenthesis,
-            ArgumentSeperator
+            ArgumentSeperator,
+            Function
         }
 
 
