@@ -87,8 +87,6 @@ namespace MathExpParser
             tokens.AddRange(RetrieveNumberBuffer());
             tokens.AddRange(RetrieveLetterBuffer());
 
-            UnityEngine.Debug.Log(tokens.Count);
-
             return tokens;
         }
 
@@ -128,8 +126,6 @@ namespace MathExpParser
 
         private bool IsNumber(string p_char)
         {
-            UnityEngine.Debug.Log(p_char);
-
             return Regex.IsMatch(p_char, StringFlag.RegexSyntax.IsNumber);
         }
 
@@ -154,14 +150,6 @@ namespace MathExpParser
         }
 
         #endregion
-
-
-
-        public void Debug(List<Token> tokens) {
-            foreach(Token t in tokens) {
-                UnityEngine.Debug.Log(t._type.ToString("g") +" , " + t._value);
-            }
-        }
 
         private void Clear() {
             tokens.Clear();
