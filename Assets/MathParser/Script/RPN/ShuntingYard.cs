@@ -146,5 +146,18 @@ namespace MathExpParser
             outputQueue.Clear();
             operatorStack.Clear();
         }
+
+        private class OutStack {
+            public Stack<ASTNode> stacks = new Stack<ASTNode>();
+
+            public void AddNode(Token token) {
+                ASTNode rightNode = stacks.Pop();
+                ASTNode leftNode = stacks.Pop();
+
+                stacks.Push(new ASTNode(token, leftNode, rightNode));
+            }
+
+        }
+
     }
 }
