@@ -21,7 +21,19 @@ namespace MathExpParser
 
             var rpn_tokens = _shuntinYard.Parse(tokens);
 
-            ToStringLog(rpn_tokens);
+            Debug.Log(rpn_tokens.token._value);
+            Debug.Log(rpn_tokens.rightChildNode.token._value);
+            Debug.Log(rpn_tokens.leftChildNode.token._value);
+
+            //Debug.Log(rpn_tokens.rightChildNode.rightChildNode.token._value);
+            //Debug.Log(rpn_tokens.rightChildNode.leftChildNode.token._value);
+
+            //Debug.Log(rpn_tokens.leftChildNode.rightChildNode.token._value);
+            //Debug.Log(rpn_tokens.leftChildNode.leftChildNode.token._value);
+
+            Debug.Log("Answer " + rpn_tokens.Solve());
+
+
         }
 
         public void ToStringLog(List<Token> tokens)
