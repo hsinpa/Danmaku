@@ -10,8 +10,11 @@ namespace MathExpParser
     public class ShuntingYard
     {
         #region Parameters
-        private List<Token> outputQueue;
+        //private List<Token> outputQueue;
         private Stack<Token> operatorStack;
+
+        private OutStack outputStack;
+
 
         private readonly Dictionary<string, string> AssociativityDict = new Dictionary<string, string> {
             { "^", "right"},
@@ -31,11 +34,12 @@ namespace MathExpParser
         #endregion
 
         public ShuntingYard() {
-            outputQueue = new List<Token>();
+            //outputQueue = new List<Token>();
             operatorStack = new Stack<Token>();
+            outputStack = new OutStack();
         }
 
-        public List<Token> Parse(List<Token> p_tokens)
+        public ASTNode Parse(List<Token> p_tokens)
         {
             Clear();
             int tokenLength = p_tokens.Count;
@@ -47,7 +51,7 @@ namespace MathExpParser
                 //push it to the output queue.
                 if (t._type == Token.Types.Number || t._type == Token.Types.Variable)
                 {
-                    outputQueue.Add(t);
+                    outputStack.stacks.Push(new ASTNode(t));
                 }
 
                 //if the token is a function then:
@@ -65,7 +69,7 @@ namespace MathExpParser
                     while (operatorStack.Count > 0
                         && operatorStack.Peek()._type != Token.Types.LeftParenthesis)
                     {
-                        outputQueue.Add(operatorStack.Pop());
+                        outputStack.AddNode(operatorStack.Pop());
                     }
 
                 }
@@ -80,11 +84,11 @@ namespace MathExpParser
                           //o1 is right associative, and has precedence less than that of o2,
                           || (GetAssociativity(t._value) == "right" && GetPrecedence(t._value) < GetPrecedence(operatorStack.Peek()._value))))
                     {
-                        outputQueue.Add(operatorStack.Pop());
+                        outputStack.AddNode(operatorStack.Pop());
                     }
+
                     //at the end of iteration push o1 onto the operator stack
                     operatorStack.Push(t);
-
                 }
 
                 //if the token is a left paren (i.e. "("), then:
@@ -99,7 +103,7 @@ namespace MathExpParser
                     //pop the operator from the operator stack onto the output queue.
                     while (operatorStack.Count > 0 && operatorStack.Peek()._type != Token.Types.LeftParenthesis)
                     {
-                        outputQueue.Add(operatorStack.Pop());
+                        outputStack.AddNode(operatorStack.Pop());
                     }
 
                     //if there is a left paren at the top of the operator stack, then:
@@ -109,7 +113,7 @@ namespace MathExpParser
 
                     //after while loop, if operator stack not null, pop everything to output queue
                     while (operatorStack.Count > 0)
-                        outputQueue.Add(operatorStack.Pop());
+                        outputStack.AddNode(operatorStack.Pop());
                 }
             }
 
@@ -117,9 +121,9 @@ namespace MathExpParser
             //while there are still operator tokens on the stack:
             //pop the operator from the operator stack onto the output queue.
             while (operatorStack.Count > 0)
-                outputQueue.Add(operatorStack.Pop());
+                outputStack.AddNode(operatorStack.Pop());
 
-            return outputQueue;
+            return outputStack.stacks.Pop();
         }
 
         private string GetAssociativity(string p_operator) {
@@ -143,7 +147,7 @@ namespace MathExpParser
 
         private void Clear()
         {
-            outputQueue.Clear();
+            outputStack.stacks.Clear();
             operatorStack.Clear();
         }
 
@@ -151,8 +155,8 @@ namespace MathExpParser
             public Stack<ASTNode> stacks = new Stack<ASTNode>();
 
             public void AddNode(Token token) {
-                ASTNode rightNode = stacks.Pop();
-                ASTNode leftNode = stacks.Pop();
+                ASTNode rightNode = (stacks.Count > 0) ? stacks.Pop() : null;
+                ASTNode leftNode = (stacks.Count > 0) ? stacks.Pop() : null;
 
                 stacks.Push(new ASTNode(token, leftNode, rightNode));
             }
