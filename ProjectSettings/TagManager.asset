@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Unit
+  - Barrier
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: GUI
     uniqueID: 2379361113
+    locked: 0
+  - name: Character
+    uniqueID: 1637346519
     locked: 0

@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class ShotgunType : BaseBullet {
 
-    public float angle;
+    //public float angle;
     public float range;
     public float radius;
 
     public float angular_velocity;
     public float numberOfBullet;
 
-    void Update()
+    public override void Fire(Vector3 direction)
     {
         if (Time.time > recordTime)
         {
-            float startAngle = angle - (range / 2);
+            float startAngle = Utility.MathUtility.VectorToAngle(direction) - (range / 2);
             float incrementalAngle = range / numberOfBullet;
 
-            for (int b = 0; b < numberOfBullet; b++) {
+            for (int b = 0; b < numberOfBullet; b++)
+            {
                 var projectile = CreateProjectile(startAngle + (incrementalAngle * b));
                 projectiles.Add(projectile);
             }
 
             recordTime += frequency;
         }
+    }
 
+    void Update()
+    {
         for (int i = 0; i < projectiles.Count; i++)
         {
             if (projectiles.Count > i)
@@ -39,6 +43,11 @@ public class ShotgunType : BaseBullet {
 
 
                 projectiles[i].transform.position += projectiles[i].transform.right * velocity * Time.deltaTime;
+
+                if (projectiles[i].duration + projectiles[i].spawnTime < Time.time) {
+                    Destroy(projectiles[i].gameObject);
+                    projectiles.RemoveAt(i);
+                }
 
             }
         }
