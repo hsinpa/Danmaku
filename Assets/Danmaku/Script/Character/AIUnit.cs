@@ -9,6 +9,16 @@ public class AIUnit : BaseCharacter
     Vector3[] paths;
     int moveIndex = 0;
 
+    public string spawnID {
+        get {
+            return _spawnID;
+        }
+    }
+    private string _spawnID;
+
+    private int forceResearchPosition = 4;
+    private float recordResearchTime = 0;
+
     private Vector3 targetDir {
         get {
             if (target != null) {
@@ -18,8 +28,12 @@ public class AIUnit : BaseCharacter
         }
     }
 
-    public void Start()
+    public void SetUp(string p_spawnId, Transform p_projectileHolder, Transform p_target)
     {
+        _spawnID = p_spawnId;
+        projectileHolder = p_projectileHolder;
+        target = p_target;
+
         base.Init();
         SearchPlayer();
     }
@@ -40,6 +54,14 @@ public class AIUnit : BaseCharacter
 
     private void FixedUpdate()
     {
+        if (Time.time > recordResearchTime) {
+            recordResearchTime = Time.time + forceResearchPosition;
+
+            Debug.Log(recordResearchTime);
+            SearchPlayer();
+            return;
+        }
+
         if (paths != null && paths.Length > 0)
         {
             if (moveIndex == paths.Length - 1) {

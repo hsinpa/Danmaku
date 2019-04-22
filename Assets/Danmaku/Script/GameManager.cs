@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private Pathfinding pathfinding;
     private TilemapReader tilemapReader;
+    private LevelManager levelManager;
 
     private Transform ProjectileHolder;
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         tilemapReader = GetComponentInChildren<TilemapReader>();
         pathfinding = GetComponentInChildren<Pathfinding>();
+        levelManager = GetComponent<LevelManager>();
 
         ProjectileHolder = this.transform.Find("Projectile");
 
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         tilemapReader.SetUp();
         pathfinding.SetUp(tilemapReader);
+        levelManager.SetUp(tilemapReader);
     }
 
 }
