@@ -45,8 +45,7 @@ public class ShotgunType : BaseBullet {
                 projectiles[i].transform.position += projectiles[i].transform.right * velocity * Time.deltaTime;
 
                 if (projectiles[i].duration + projectiles[i].spawnTime < Time.time) {
-                    Destroy(projectiles[i].gameObject);
-                    projectiles.RemoveAt(i);
+                    DestroyBullet(i);
                 }
 
             }

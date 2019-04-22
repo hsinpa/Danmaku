@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 public class TilemapReader : MonoBehaviour
 {
     [SerializeField]
     private Transform grid;
 
-    private Dictionary<Vector3, Node>  _nodes = new Dictionary<Vector3, Node>();
+    private Dictionary<Vector3, Node> _nodes = new Dictionary<Vector3, Node>();
 
     public int MaxTileSize {
         get {
@@ -145,7 +146,7 @@ public class TilemapReader : MonoBehaviour
         //        if (neighbourNode == null) continue;
 
         //        neighbours.Add(neighbourNode);
-                
+
         //    }
         //}
 
@@ -159,11 +160,16 @@ public class TilemapReader : MonoBehaviour
 
             neighbours.Add(neighbourNode);
         }
-
-
-
         return neighbours;
     }
 
+    public List<Node> GetEmptyNode() {
+        var nodelist = _nodes.Values.ToList();
+        var freeSpaceNode = new List<Node>();
+
+        freeSpaceNode = nodelist.FindAll(x => x.walkable);
+
+        return freeSpaceNode;
+    }
 
 }

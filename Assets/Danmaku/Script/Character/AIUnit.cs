@@ -18,15 +18,10 @@ public class AIUnit : BaseCharacter
         }
     }
 
-    private BaseBullet baseBullet;
-
     public void Start()
     {
         base.Init();
         SearchPlayer();
-
-        baseBullet = GetComponent<BaseBullet>();
-        baseBullet.projectileHolder = projectileHolder;
     }
 
     private void SearchPlayer() {
@@ -39,7 +34,8 @@ public class AIUnit : BaseCharacter
 
     private void Update()
     {
-        baseBullet.Fire(targetDir);
+        if (baseBullet != null)
+            baseBullet.Fire(targetDir);
     }
 
     private void FixedUpdate()

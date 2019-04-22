@@ -14,11 +14,27 @@ public abstract class BaseBullet : MonoBehaviour {
     protected float recordTime;
 
     protected List<BaseProjectile> projectiles = new List<BaseProjectile>();
+    protected BaseCharacter baseCharacter;
 
+    public void SetUp(BaseCharacter baseCharacter) {
+        this.baseCharacter = baseCharacter;
+    }
     
-
     public virtual void Fire(Vector3 direction) {
 
+    }
+
+    protected void DestroyBullet(int bulletIndex) {
+        Destroy(projectiles[bulletIndex].gameObject);
+        projectiles.RemoveAt(bulletIndex);
+    }
+
+    protected virtual void OnBulletDestroy(BaseProjectile p_projectile)
+    {
+        int findIndex = projectiles.IndexOf(p_projectile);
+
+        if (findIndex >= 0 && findIndex < projectiles.Count)
+            DestroyBullet(findIndex);
     }
 
     protected BaseProjectile CreateProjectile(float p_angle)
@@ -29,9 +45,14 @@ public abstract class BaseBullet : MonoBehaviour {
         projectile.transform.position = transform.position;
 
         SpriteRenderer spriteRenderer = projectile.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = this.bullet_sprite;
+        ProjectBehavior projectBehavior = projectile.GetComponent<ProjectBehavior>();
 
+        spriteRenderer.sprite = this.bullet_sprite;
+        baseProjectile.fromCharacter = this.baseCharacter;
         baseProjectile.spawnTime = Time.time;
+
+        projectBehavior.OnProjectileDestroy += OnBulletDestroy;
+
         return baseProjectile;
     }
 }

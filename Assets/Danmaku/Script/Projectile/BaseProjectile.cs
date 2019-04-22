@@ -8,4 +8,9 @@ public class BaseProjectile : MonoBehaviour {
 
     public float spawnTime;
     public float duration;
+
+    public bool penetrateBarrier;
+
+    [HideInInspector]
+    public BaseCharacter fromCharacter;
 }

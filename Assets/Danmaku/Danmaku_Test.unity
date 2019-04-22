@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 469435344}
   - component: {fileID: 469435345}
   - component: {fileID: 469435346}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: dungeon_enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   projectileHolder: {fileID: 237078561}
+  team: 0
   target: {fileID: 2000685120}
 --- !u!50 &469435346
 Rigidbody2D:
@@ -1585,7 +1586,7 @@ GameObject:
   - component: {fileID: 883592504}
   - component: {fileID: 883592503}
   - component: {fileID: 883592502}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2556,7 +2557,7 @@ GameObject:
   - component: {fileID: 2000685122}
   - component: {fileID: 2000685123}
   - component: {fileID: 2000685121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: dungeon_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2639,6 +2640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   projectileHolder: {fileID: 0}
+  team: 0
 --- !u!50 &2000685122
 Rigidbody2D:
   serializedVersion: 4
