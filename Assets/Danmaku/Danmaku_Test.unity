@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -314,11 +314,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b49b76fa496824ba8ef2fa6a05ec69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2000685121}
+  projectileHolder: {fileID: 237078561}
   waves:
   - enemySegments:
     - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
         type: 3}
-      spawn_number: 5
+      spawn_number: 0
     remaining_spawn_point: 0.2
 --- !u!1 &557127290
 GameObject:
@@ -1439,7 +1441,7 @@ GameObject:
   - component: {fileID: 883592504}
   - component: {fileID: 883592503}
   - component: {fileID: 883592502}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2471,6 +2473,7 @@ GameObject:
   - component: {fileID: 2000685122}
   - component: {fileID: 2000685123}
   - component: {fileID: 2000685121}
+  - component: {fileID: 2000685124}
   m_Layer: 8
   m_Name: dungeon_player
   m_TagString: Untagged
@@ -2602,3 +2605,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.49020728, y: 0.7054291}
   m_EdgeRadius: 0
+--- !u!114 &2000685124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000685118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1fd17642b602c4c908db6de576068e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1411318847061768, guid: b26431cab660f584084ef93cc8435786, type: 3}
+  velocity: 2
+  frequency: 0.3
+  projectileHolder: {fileID: 0}
+  testMode: 0
+  test_angle: 0
+  range: 0
+  radius: 0
+  angular_velocity: 0
+  numberOfBullet: 1

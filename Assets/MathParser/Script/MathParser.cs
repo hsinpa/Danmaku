@@ -18,12 +18,8 @@ namespace MathExpParser
         public void Parse(string raw_syntax)
         {
             var tokens = _tokenizer.Parse(raw_syntax);
-
-            var rpn_tokens = _shuntinYard.Parse(tokens);
-
-            Debug.Log(rpn_tokens.token._value);
-            Debug.Log(rpn_tokens.rightChildNode.token._value);
-            Debug.Log(rpn_tokens.leftChildNode.token._value);
+            ToStringLog(tokens);
+            //var rpn_tokens = _shuntinYard.Parse(tokens);
 
             //Debug.Log(rpn_tokens.rightChildNode.rightChildNode.token._value);
             //Debug.Log(rpn_tokens.rightChildNode.leftChildNode.token._value);
@@ -31,20 +27,17 @@ namespace MathExpParser
             //Debug.Log(rpn_tokens.leftChildNode.rightChildNode.token._value);
             //Debug.Log(rpn_tokens.leftChildNode.leftChildNode.token._value);
 
-            Debug.Log("Answer " + rpn_tokens.Solve());
+            //Debug.Log("Answer " + rpn_tokens.Solve());
 
-
+            //rpn_tokens.Render();
         }
 
         public void ToStringLog(List<Token> tokens)
         {
-            string groupString = ""; 
-            foreach (Token t in tokens)
+            for (int i = 0; i < tokens.Count; i++)
             {
-                groupString += t._value + " ";
+                Debug.Log(i + " => " + tokens[i]._type + "(" + tokens[i]._value + ")");
             }
-
-            Debug.Log(groupString);
         }
 
     }

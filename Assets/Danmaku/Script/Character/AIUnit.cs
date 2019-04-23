@@ -16,7 +16,7 @@ public class AIUnit : BaseCharacter
     }
     private string _spawnID;
 
-    private int forceResearchPosition = 4;
+    private float forceResearchPosition = 0.5f;
     private float recordResearchTime = 0;
 
     private Vector3 targetDir {
@@ -35,7 +35,7 @@ public class AIUnit : BaseCharacter
         target = p_target;
 
         base.Init();
-        SearchPlayer();
+        //SearchPlayer();
     }
 
     private void SearchPlayer() {
@@ -54,28 +54,31 @@ public class AIUnit : BaseCharacter
 
     private void FixedUpdate()
     {
-        if (Time.time > recordResearchTime) {
+        if (Time.time > recordResearchTime)
+        {
             recordResearchTime = Time.time + forceResearchPosition;
 
-            Debug.Log(recordResearchTime);
             SearchPlayer();
             return;
         }
 
         if (paths != null && paths.Length > 0)
         {
-            if (moveIndex == paths.Length - 1) {
+            if (moveIndex == paths.Length - 1)
+            {
                 SearchPlayer();
                 return;
-            } else if (paths.Length > moveIndex + 0.1f) {
+            }
+            else if (paths.Length > moveIndex + 0.1f)
+            {
                 float distance = Vector3.Distance(paths[moveIndex], transform.position);
-                if (distance < 0.1f) {
+                if (distance < 0.05f)
+                {
                     moveIndex++;
                 }
             }
-           
+
             actions.Move((paths[moveIndex] - transform.position).normalized);
         }
-
     }
 }

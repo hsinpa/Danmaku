@@ -37,17 +37,17 @@ public class TilemapReader : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var worldPoint = new Vector3Int(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y), 0);
-            Node _node;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    var worldPoint = new Vector3Int(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y), 0);
+        //    Node _node;
 
-            if (_nodes.TryGetValue(worldPoint, out _node))
-            {
-                print("Tile worldPoint " + worldPoint);
-            }
-        }
+        //    if (_nodes.TryGetValue(worldPoint, out _node))
+        //    {
+        //        print("Tile worldPoint " + _node.worldPosition +", " + _node.walkable);
+        //    }
+        //}
     }
 
     private Vector3 GetAnchorSize(Transform p_grid) {

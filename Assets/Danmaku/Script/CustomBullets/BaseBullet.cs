@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class BaseBullet : MonoBehaviour {
     public GameObject prefab;
-    public Sprite bullet_sprite;
     public float velocity;
     public float frequency;
 
@@ -15,6 +14,10 @@ public abstract class BaseBullet : MonoBehaviour {
 
     protected List<BaseProjectile> projectiles = new List<BaseProjectile>();
     protected BaseCharacter baseCharacter;
+
+    [SerializeField]
+    protected bool testMode;
+
 
     public void SetUp(BaseCharacter baseCharacter) {
         this.baseCharacter = baseCharacter;
@@ -44,10 +47,8 @@ public abstract class BaseBullet : MonoBehaviour {
         projectile.transform.rotation = Quaternion.Euler(0, 0, p_angle);
         projectile.transform.position = transform.position;
 
-        SpriteRenderer spriteRenderer = projectile.GetComponent<SpriteRenderer>();
         ProjectBehavior projectBehavior = projectile.GetComponent<ProjectBehavior>();
 
-        spriteRenderer.sprite = this.bullet_sprite;
         baseProjectile.fromCharacter = this.baseCharacter;
         baseProjectile.spawnTime = Time.time;
 

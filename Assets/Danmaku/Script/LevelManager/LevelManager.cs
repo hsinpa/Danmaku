@@ -7,7 +7,7 @@ using Utility;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform player;
+    private PlayerUnit player;
 
     [SerializeField]
     private Transform projectileHolder;
@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
         waveIndex = -1;
         total_aiUnit = new List<AIUnit>();
 
+        player.SetUp(projectileHolder);
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
         StartCoroutine( Spawn(1, PrepareWave() ) );
@@ -73,7 +74,7 @@ public class LevelManager : MonoBehaviour
 
                     unit.transform.position = randomNode.worldPosition;
                     unit.gameObject.SetActive(true);
-                    unit.SetUp(waveIndex.ToString(), projectileHolder, player);
+                    unit.SetUp(waveIndex.ToString(), projectileHolder, player.transform);
 
                     p_inactiveUnits.RemoveAt(0);
                 }

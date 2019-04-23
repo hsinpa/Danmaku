@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShotgunType : BaseBullet {
 
-    //public float angle;
+    public float test_angle;
     public float range;
     public float radius;
 
@@ -24,12 +24,17 @@ public class ShotgunType : BaseBullet {
                 projectiles.Add(projectile);
             }
 
-            recordTime += frequency;
+            recordTime = Time.time + frequency;
         }
     }
 
     void Update()
     {
+        //if (Input.GetKey(KeyCode.Space)) {
+            float x = Mathf.Cos(test_angle), y = Mathf.Sin(test_angle);
+            Fire(new Vector2(x, y));
+        //}
+
         for (int i = 0; i < projectiles.Count; i++)
         {
             if (projectiles.Count > i)

@@ -19,7 +19,7 @@ public class TestOurTile : MonoBehaviour
 
             if (tiles.TryGetValue(worldPoint, out _tile))
             {
-                print("Tile " + _tile.Name + " costs: " + _tile.Cost);
+                print("Tile " + _tile.Name + " costs: " + _tile.Cost +", walkable " + _tile.IsWalkable);
                 _tile.TilemapMember.SetTileFlags(_tile.LocalPlace, TileFlags.None);
                 _tile.TilemapMember.SetColor(_tile.LocalPlace, Color.green);
             }

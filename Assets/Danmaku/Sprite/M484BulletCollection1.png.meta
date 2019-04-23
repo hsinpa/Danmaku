@@ -3,6 +3,7 @@ guid: 63c662b54ac4e9947812031b1052f913
 TextureImporter:
   fileIDToRecycleName:
     21300000: M484BulletCollection1_0
+    21300002: M484BulletCollection1_1
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -122,6 +123,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7367639353837eb48a3dfd1247fc9ebd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M484BulletCollection1_1
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 193
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89e976ec8df5a2d4d9e75168bf53801b
       vertices: []
       indices: 
       edges: []

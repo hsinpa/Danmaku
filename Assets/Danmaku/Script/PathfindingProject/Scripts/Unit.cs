@@ -14,7 +14,9 @@ public class Unit : MonoBehaviour {
 
 	Path path;
 
-	void Start() {
+	public void SetUp(Transform p_target) {
+        target = p_target;
+
 		StartCoroutine (UpdatePath ());
 	}
 
@@ -51,7 +53,7 @@ public class Unit : MonoBehaviour {
 
 		bool followingPath = true;
 		int pathIndex = 0;
-		transform.LookAt (path.lookPoints [0]);
+		//transform.LookAt (path.lookPoints [0]);
 
 		float speedPercent = 1;
 
@@ -75,9 +77,9 @@ public class Unit : MonoBehaviour {
 					}
 				}
 
-				Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
-				transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
-				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
+                Vector3 targetDir = (path.lookPoints[pathIndex] - transform.position).normalized;
+                //transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+                transform.Translate (targetDir * Time.deltaTime * speed * speedPercent, Space.Self);
 			}
 
 			yield return null;
@@ -87,7 +89,7 @@ public class Unit : MonoBehaviour {
 
 	public void OnDrawGizmos() {
 		if (path != null) {
-			path.DrawWithGizmos ();
+			//path.DrawWithGizmos ();
 		}
 	}
 }

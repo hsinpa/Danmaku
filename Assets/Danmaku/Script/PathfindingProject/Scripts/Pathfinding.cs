@@ -72,37 +72,44 @@ public class Pathfinding : MonoBehaviour {
 	
 	Vector3[] RetracePath(Node startNode, Node endNode) {
 		List<Node> path = new List<Node>();
-        List<Vector3> waypoints = new List<Vector3>();
+        //List<Vector3> waypoints = new List<Vector3>();
 
         Node currentNode = endNode;
 		
 		while (currentNode != startNode) {
 			path.Add(currentNode);
-            waypoints.Add(currentNode.worldPosition);
+            //waypoints.Add(currentNode.worldPosition);
             currentNode = currentNode.parent;
 		}
 
         //print("Before SimplifyPath : " + path.Count);
-        //Vector3[] waypoints = SimplifyPath(path);
-        waypoints.Reverse();
-        //Array.Reverse(waypoints.ToArray());
+        Vector3[] waypoints = SimplifyPath(path);
+        //waypoints.Reverse();
+        Array.Reverse(waypoints);
         //print("After SimplifyPath : " + waypoints.Length);
-        return waypoints.ToArray();
+        return waypoints;
     }
 	
 	Vector3[] SimplifyPath(List<Node> path) {
 		List<Vector3> waypoints = new List<Vector3>();
 		Vector2 directionOld = Vector2.zero;
 
-		for (int i = 1; i < path.Count; i++) {
+        for (int i = 0; i < path.Count; i++) {
 
-			Vector2 directionNew = new Vector2(path[i-1].gridX - path[i].gridX, path[i-1].gridY - path[i].gridY);
+            if (i == path.Count - 1 || i == 0)
+            {
+                waypoints.Add(path[i].worldPosition);
+            } else {
+                Vector2 directionNew = (path[i - 1].worldPosition - path[i].worldPosition);
+                if (directionOld != directionNew)
+                {
+                    waypoints.Add(path[i].worldPosition);
+                }
 
-            if (directionNew != directionOld) {
-				waypoints.Add(path[i].worldPosition);
-			}
-			directionOld = directionNew;
-		}
+                directionOld = directionNew;
+            }
+
+        }
 		return waypoints.ToArray();
 	}
 	

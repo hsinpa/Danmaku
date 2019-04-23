@@ -92,7 +92,8 @@ namespace MathExpParser
                 }
 
                 //if the token is a left paren (i.e. "("), then:
-                else if (t._type == Token.Types.LeftParenthesis) {
+                else if (t._type == Token.Types.LeftParenthesis)
+                {
                     operatorStack.Push(t);
                 }
 
@@ -108,11 +109,11 @@ namespace MathExpParser
 
                     //if there is a left paren at the top of the operator stack, then:
                     //pop the operator from the operator stack and discard it
-                    if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.LeftParenthesis)
-                        operatorStack.Pop();
+                    //if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.LeftParenthesis)
+                    operatorStack.Pop();
 
                     //after while loop, if operator stack not null, pop everything to output queue
-                    while (operatorStack.Count > 0)
+                    if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.Function)
                         outputStack.AddNode(operatorStack.Pop());
                 }
             }
@@ -131,7 +132,7 @@ namespace MathExpParser
                 return AssociativityDict[p_operator];
             }
 
-            return "left";
+            return "right";
         }
 
         private int GetPrecedence(string p_operator)
@@ -141,7 +142,7 @@ namespace MathExpParser
                 return PrecedenceDict[p_operator];
             }
 
-            return 1;
+            return 4;
         }
 
 
