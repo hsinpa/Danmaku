@@ -30,10 +30,10 @@ public class ShotgunType : BaseBullet {
 
     void Update()
     {
-        //if (Input.GetKey(KeyCode.Space)) {
+        if (testMode) {
             float x = Mathf.Cos(test_angle), y = Mathf.Sin(test_angle);
             Fire(new Vector2(x, y));
-        //}
+        }
 
         for (int i = 0; i < projectiles.Count; i++)
         {
@@ -54,6 +54,14 @@ public class ShotgunType : BaseBullet {
                 }
 
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < projectiles.Count; i++) {
+            if (projectiles[i] != null)
+                Destroy(projectiles[i].gameObject);
         }
     }
 

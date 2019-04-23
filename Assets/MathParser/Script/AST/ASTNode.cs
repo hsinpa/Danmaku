@@ -19,43 +19,39 @@ namespace MathExpParser
 
         public float Solve()
         {
-            Debug.Log(this.token._type + ", " + this.token._value);
-
             if (token._type == Token.Types.Number) {
                 return float.Parse(token._value);
             }
 
 
-            //float leftNumber = (leftChildNode == null) ? 0 : leftChildNode.Solve();
+            float leftNumber = (leftChildNode == null) ? 0 : leftChildNode.Solve();
             float rightNumber = (rightChildNode == null) ? 0 : rightChildNode.Solve();
 
-            Debug.Log("IsLeftNull " + (leftChildNode == null) + ", IsRightNull" + (rightChildNode == null));
-            Debug.Log(token._value + ", rightNumber" + rightNumber);
-            //Debug.Log(token._value + ", leftNumber" + leftNumber + ", rightNumber" + rightNumber);
+            Debug.Log(token._value + ", leftNumber" + leftNumber + ", rightNumber" + rightNumber);
 
-            //switch (token._value) {
-            //    case "+":
-            //        return leftNumber + rightNumber;
+            switch (token._value)
+            {
+                case "+":
+                    return leftNumber + rightNumber;
 
-            //    case "-":
-            //        return leftNumber - rightNumber;
+                case "-":
+                    return leftNumber - rightNumber;
 
-            //    case "/":
-            //        return leftNumber / rightNumber;
+                case "/":
+                    return leftNumber / rightNumber;
 
-            //    case "*":
-            //        return leftNumber * rightNumber;
+                case "*":
+                    return leftNumber * rightNumber;
 
-            //    case "^":
-            //        return Mathf.Pow(leftNumber, rightNumber);
+                case "^":
+                    return Mathf.Pow(leftNumber, rightNumber);
 
-            //case "sin":
-            //    return Mathf.Sin(rightNumber);
+                case "sin":
+                    return Mathf.Sin(rightNumber);
 
-            //default:
-            //    return 0;
-            return 0;
-            //}
+                default:
+                    return 0;
+            }
         }
 
         public void Render() {

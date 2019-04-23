@@ -23,6 +23,17 @@ public class LevelManager : MonoBehaviour
 
     private List<AIUnit> total_aiUnit;
 
+    private int totalUnitInWave {
+        get {
+            int total = 0;
+            foreach (var segment in waves[waveIndex].enemySegments)
+            {
+                total += segment.spawn_number;
+            }
+            return total;
+        }
+    }
+
     public void SetUp(TilemapReader tilemapReader) {
         _tilemapReader = tilemapReader;
         waveIndex = -1;
@@ -75,6 +86,9 @@ public class LevelManager : MonoBehaviour
                     unit.transform.position = randomNode.worldPosition;
                     unit.gameObject.SetActive(true);
                     unit.SetUp(waveIndex.ToString(), projectileHolder, player.transform);
+                    unit.OnDestroy += OnAIUnitDestroy;
+
+                    total_aiUnit.Add(unit);
 
                     p_inactiveUnits.RemoveAt(0);
                 }
@@ -95,8 +109,23 @@ public class LevelManager : MonoBehaviour
         return unit;
     }
 
-    private void OnAIUnitDestroy(AIUnit p_unit) {
+    private void OnAIUnitDestroy(BaseCharacter p_unit) {
 
+
+        if (p_unit.GetType() == typeof(AIUnit))
+        {
+
+            AIUnit aiUnit = (AIUnit)p_unit;
+
+            bool isRemove = total_aiUnit.Remove(aiUnit);
+            if (isRemove) {
+                Destroy(p_unit.gameObject);
+
+                if (total_aiUnit.Count <= 0 || total_aiUnit.Count / totalUnitInWave <= waves[waveIndex].remaining_spawn_point) {
+                    StartCoroutine(Spawn(1, PrepareWave()));
+                }
+            }
+        }
     }
 
     [System.Serializable]

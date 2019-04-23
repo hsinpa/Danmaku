@@ -8,31 +8,30 @@ namespace MathExpParser
     {
         Tokenizer _tokenizer;
         ShuntingYard _shuntinYard;
+        ShuntingYardOrigin _shuntinYardOrigin;
 
         public MathParser() {
             _tokenizer = new Tokenizer();
             _shuntinYard = new ShuntingYard();
+
+            _shuntinYardOrigin = new ShuntingYardOrigin();
         }
         
 
         public void Parse(string raw_syntax)
         {
-            var tokens = _tokenizer.Parse(raw_syntax);
-            ToStringLog(tokens);
+            var tokens = _tokenizer.Parse(raw_syntax.ToLower());
+            //ToStringLog(tokens);
             //var rpn_tokens = _shuntinYard.Parse(tokens);
 
-            //Debug.Log(rpn_tokens.rightChildNode.rightChildNode.token._value);
-            //Debug.Log(rpn_tokens.rightChildNode.leftChildNode.token._value);
+            var tokenList = _shuntinYardOrigin.Parse(tokens);
 
-            //Debug.Log(rpn_tokens.leftChildNode.rightChildNode.token._value);
-            //Debug.Log(rpn_tokens.leftChildNode.leftChildNode.token._value);
-
+            RPNToStringLog(tokenList);
             //Debug.Log("Answer " + rpn_tokens.Solve());
-
             //rpn_tokens.Render();
         }
 
-        public void ToStringLog(List<Token> tokens)
+        public void TokenToStringLog(List<Token> tokens)
         {
             for (int i = 0; i < tokens.Count; i++)
             {
@@ -40,5 +39,15 @@ namespace MathExpParser
             }
         }
 
+        public void RPNToStringLog(List<Token> tokens)
+        {
+            string groupString = "";
+            foreach (Token t in tokens)
+            {
+                groupString += t._value + " ";
+            }
+
+            Debug.Log(groupString);
+        }
     }
 }

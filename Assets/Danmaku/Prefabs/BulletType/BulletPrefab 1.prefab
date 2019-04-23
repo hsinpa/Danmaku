@@ -124,7 +124,7 @@ MonoBehaviour:
   angle: 0
   velocity: 0
   spawnTime: 0
-  duration: 8
+  duration: 5
   penetrateBarrier: 0
   fromCharacter: {fileID: 0}
 --- !u!50 &5161128043600111650

@@ -6,7 +6,7 @@ public class ProjectBehavior : MonoBehaviour
 {
     BaseProjectile baseProjectile;
 
-    public System.Action<BaseProjectile> OnProjectileDestroy;
+    public System.Action<BaseProjectile, Collider2D> OnProjectileDestroy;
 
     private void Start()
     {
@@ -20,13 +20,19 @@ public class ProjectBehavior : MonoBehaviour
         switch (collision.gameObject.layer) {
 
             case VariableFlag.LayerMask.unitLayer:
-                //if (OnProjectileDestroy != null)
-                //    OnProjectileDestroy(baseProjectile);
+
+                BaseCharacter baseCharacter = collision.gameObject.GetComponent<BaseCharacter>();
+                if (baseProjectile.fromCharacter.team != baseCharacter.team) {
+                    baseCharacter.OnHit(baseProjectile);
+                    if (OnProjectileDestroy != null)
+                        OnProjectileDestroy(baseProjectile, collision);
+                }
+
                 break;
 
             case VariableFlag.LayerMask.barrierLayer:
                 if (OnProjectileDestroy != null)
-                    OnProjectileDestroy(baseProjectile);
+                    OnProjectileDestroy(baseProjectile, collision);
             break;
 
         }

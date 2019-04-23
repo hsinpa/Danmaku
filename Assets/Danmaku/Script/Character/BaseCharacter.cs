@@ -14,6 +14,8 @@ public class BaseCharacter : MonoBehaviour
     protected Rigidbody2D rigidBody;
     protected BaseBullet baseBullet;
 
+    public System.Action<BaseCharacter> OnDestroy;
+
     public enum Team {
         Team1, // Player
         Team2 // Enemy
@@ -33,6 +35,11 @@ public class BaseCharacter : MonoBehaviour
             baseBullet.SetUp(this);
             baseBullet.projectileHolder = projectileHolder;
         }
+    }
+
+    public virtual void OnHit(BaseProjectile p_baseProjectile) {
+        if (team == Team.Team2 && OnDestroy != null)
+            OnDestroy(this);
     }
 
 }

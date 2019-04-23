@@ -32,7 +32,7 @@ public abstract class BaseBullet : MonoBehaviour {
         projectiles.RemoveAt(bulletIndex);
     }
 
-    protected virtual void OnBulletDestroy(BaseProjectile p_projectile)
+    protected virtual void OnBulletDestroy(BaseProjectile p_projectile, Collider2D p_collider2D)
     {
         int findIndex = projectiles.IndexOf(p_projectile);
 

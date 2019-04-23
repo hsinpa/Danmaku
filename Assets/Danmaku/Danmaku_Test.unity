@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -320,7 +320,12 @@ MonoBehaviour:
   - enemySegments:
     - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
         type: 3}
-      spawn_number: 0
+      spawn_number: 2
+    remaining_spawn_point: 0.2
+  - enemySegments:
+    - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
+        type: 3}
+      spawn_number: 5
     remaining_spawn_point: 0.2
 --- !u!1 &557127290
 GameObject:
@@ -2618,7 +2623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1411318847061768, guid: b26431cab660f584084ef93cc8435786, type: 3}
-  velocity: 2
+  velocity: 5
   frequency: 0.3
   projectileHolder: {fileID: 0}
   testMode: 0
