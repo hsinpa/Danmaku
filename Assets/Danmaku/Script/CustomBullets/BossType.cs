@@ -26,6 +26,8 @@ public class BossType : MonoBehaviour {
         }
     }
 
+    public Transform target;
+
     private void Start()
     {
         bulletPattern = GetComponent<BulletPattern>();
@@ -77,6 +79,9 @@ public class BossType : MonoBehaviour {
         if (testMode && bulletPatternIndex >= 0) {
 
             Vector3 direction = new Vector3(Mathf.Cos(bulletType.angle * Mathf.Deg2Rad), Mathf.Sin(bulletType.angle * Mathf.Deg2Rad), 0);
+            if (bulletType.angleOnTarget && target != null)
+                direction = (target.position - transform.position).normalized;
+
             Fire(direction);
         }
 
@@ -98,7 +103,6 @@ public class BossType : MonoBehaviour {
                 {
                     DestroyBullet(i);
                 }
-
             }
         }
     }

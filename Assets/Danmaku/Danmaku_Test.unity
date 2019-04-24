@@ -320,13 +320,21 @@ MonoBehaviour:
   - enemySegments:
     - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
         type: 3}
-      spawn_number: 2
-    remaining_spawn_point: 0.2
+      spawn_number: 6
+    remaining_spawn_point: 0.4
   - enemySegments:
     - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
         type: 3}
+      spawn_number: 2
+    - prefab: {fileID: 900434551495025468, guid: c0fb7cedebadeef408129ef3f9097e5c,
+        type: 3}
       spawn_number: 5
-    remaining_spawn_point: 0.2
+    remaining_spawn_point: 0.4
+  - enemySegments:
+    - prefab: {fileID: 900434551495025468, guid: ae594975e15b8424d8f070df4cbdea50,
+        type: 3}
+      spawn_number: 1
+    remaining_spawn_point: 1
 --- !u!1 &557127290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,6 +2570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   projectileHolder: {fileID: 0}
+  isKillable: 1
   team: 0
 --- !u!50 &2000685122
 Rigidbody2D:

@@ -11,7 +11,10 @@ public class BulletPattern : MonoBehaviour
     public struct BulletType {
         public string _id;
         public GameObject prefab;
+
         public float angle;
+        public bool angleOnTarget;
+
         public float velocity;
         public float frequency;
         public float duration;

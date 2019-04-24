@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1422,61 +1422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 658379478}
---- !u!1 &767652782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 900434551495025468, guid: ae594975e15b8424d8f070df4cbdea50,
-    type: 3}
-  m_PrefabInstance: {fileID: 920136670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &767652789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767652782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a7f7bcff900cb541b197f45e2b50820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType:
-  - _id: phase_1
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 0
-    velocity: 5
-    frequency: 0.2
-    duration: 5
-    range: 360
-    radius: 0
-    angular_velocity: 200
-    numberOfBullet: 3
-    onDurationEvent: phase_2
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_2
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 180
-    velocity: 9
-    frequency: 0.2
-    duration: 5
-    range: 360
-    radius: 0
-    angular_velocity: 120
-    numberOfBullet: 5
-    onDurationEvent: phase_3
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_3
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 270
-    velocity: 12
-    frequency: 0.2
-    duration: 2
-    range: 90
-    radius: 30
-    angular_velocity: 0
-    numberOfBullet: 20
-    onDurationEvent: destroy
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &883592498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,49 +2146,7 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2000685120}
-    - target: {fileID: 900434551495025441, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937,
-        type: 3}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: velocity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: frequency
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: angular_velocity
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: numberOfBullet
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: testMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 268171937472264724, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: bulletSpawnOffset.y
-      value: -1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 900434551495025469, guid: ae594975e15b8424d8f070df4cbdea50, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae594975e15b8424d8f070df4cbdea50, type: 3}
 --- !u!1 &957643136
 GameObject:
@@ -2728,6 +2631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   projectileHolder: {fileID: 0}
+  isKillable: 1
   team: 0
 --- !u!50 &2000685122
 Rigidbody2D:

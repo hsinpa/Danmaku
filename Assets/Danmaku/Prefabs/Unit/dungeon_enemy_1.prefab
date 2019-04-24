@@ -143,10 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38c5775284f4a54a855103a85f3a3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.5
+  moveSpeed: 1.5
   projectileHolder: {fileID: 0}
+  isKillable: 1
   team: 1
   target: {fileID: 0}
+  autoMove: 1
 --- !u!50 &900434551495025442
 Rigidbody2D:
   serializedVersion: 4

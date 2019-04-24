@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     private Transform enemyHolder;
 
     private List<AIUnit> total_aiUnit;
+    private int total_aiUnit_count;
 
     private int totalUnitInWave {
         get {
@@ -64,6 +65,7 @@ public class LevelManager : MonoBehaviour
 
                         inactiveUnit.Add(spawnUnit.GetComponent<AIUnit>());
                     }
+                    total_aiUnit_count += unitSegment.spawn_number;
                 }
             }
         }
@@ -76,7 +78,7 @@ public class LevelManager : MonoBehaviour
 
         List<Node> emptyNodes = _tilemapReader.GetEmptyNode();
         if (emptyNodes != null && emptyNodes.Count > 0) {
-            int randomSpawnUnit = Random.Range(0, 6);
+            int randomSpawnUnit = Random.Range(0, 3);
 
             for (int i = 0; i < randomSpawnUnit; i++) {
                 if (p_inactiveUnits.Count > 0) {
@@ -95,7 +97,7 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        float randomDelayTime = Random.Range(0.3f, 1.5f);
+        float randomDelayTime = Random.Range(0.3f, 3f);
         if (p_inactiveUnits.Count > 0)
             StartCoroutine(Spawn(randomDelayTime, p_inactiveUnits));
     }
@@ -121,7 +123,7 @@ public class LevelManager : MonoBehaviour
             if (isRemove) {
                 Destroy(p_unit.gameObject);
 
-                if (total_aiUnit.Count <= 0 || total_aiUnit.Count / totalUnitInWave <= waves[waveIndex].remaining_spawn_point) {
+                if (total_aiUnit.Count <= 0 || total_aiUnit_count / (float)totalUnitInWave <= waves[waveIndex].remaining_spawn_point) {
                     StartCoroutine(Spawn(1, PrepareWave()));
                 }
             }

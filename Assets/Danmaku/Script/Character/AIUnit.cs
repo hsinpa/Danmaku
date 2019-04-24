@@ -19,6 +19,9 @@ public class AIUnit : BaseCharacter
     private float forceResearchPosition = 0.5f;
     private float recordResearchTime = 0;
 
+    [SerializeField]
+    private bool autoMove = true;
+
     private Vector3 targetDir {
         get {
             if (target != null) {
@@ -33,6 +36,10 @@ public class AIUnit : BaseCharacter
         _spawnID = p_spawnId;
         projectileHolder = p_projectileHolder;
         target = p_target;
+
+        BossType bose = GetComponent<BossType>();
+        if (bose != null)
+            bose.target = p_target;
 
         base.Init();
         //SearchPlayer();
@@ -54,6 +61,8 @@ public class AIUnit : BaseCharacter
 
     private void FixedUpdate()
     {
+        if (!autoMove) return;
+
         if (Time.time > recordResearchTime)
         {
             recordResearchTime = Time.time + forceResearchPosition;

@@ -16,6 +16,9 @@ public class BaseCharacter : MonoBehaviour
 
     public System.Action<BaseCharacter> OnDestroy;
 
+    [SerializeField]
+    private bool isKillable = true;
+
     public enum Team {
         Team1, // Player
         Team2 // Enemy
@@ -38,7 +41,7 @@ public class BaseCharacter : MonoBehaviour
     }
 
     public virtual void OnHit(BaseProjectile p_baseProjectile) {
-        if (team == Team.Team2 && OnDestroy != null)
+        if (team == Team.Team2 && OnDestroy != null && isKillable)
             OnDestroy(this);
     }
 
