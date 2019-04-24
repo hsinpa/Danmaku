@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 900434551495025471}
   - component: {fileID: 900434551495025470}
-  - component: {fileID: 900434551495025469}
   - component: {fileID: 900434551495025440}
   - component: {fileID: 900434551495025441}
   - component: {fileID: 900434551495025442}
+  - component: {fileID: 268171937472264724}
   m_Layer: 8
   m_Name: dungeon_enemy_3
   m_TagString: Untagged
@@ -83,27 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &900434551495025469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900434551495025468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1fd17642b602c4c908db6de576068e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-  bullet_sprite: {fileID: 21300000, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
-  velocity: 4
-  frequency: 1
-  projectileHolder: {fileID: 0}
-  range: 360
-  radius: 15
-  angular_velocity: 15
-  numberOfBullet: 25
 --- !u!61 &900434551495025440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,3 +146,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &268171937472264724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900434551495025468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ebea3e85f780144a00bce36e10a59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  velocity: 0
+  frequency: 0
+  projectileHolder: {fileID: 0}
+  testMode: 0
+  test_angle: 0
+  range: 0
+  radius: 0
+  angular_velocity: 0
+  numberOfBullet: 0
