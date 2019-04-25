@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 namespace MathExpParser
 {
     public class Tokenizer
@@ -22,7 +21,7 @@ namespace MathExpParser
         public List<Token> Parse(string p_raw_expression) {
             Clear();
 
-            p_raw_expression = Regex.Replace(p_raw_expression, StringFlag.RegexSyntax.IgnoreSpace, "");
+            p_raw_expression = Regex.Replace(p_raw_expression, StaticDataSet.RegexSyntax.IgnoreSpace, "");
 
 
             for (int i = 0; i < p_raw_expression.Length; i++) {
@@ -70,8 +69,8 @@ namespace MathExpParser
                 }
                 else if (isRightParenthesis(part))
                 {
-                    tokens.AddRange(RetrieveNumberBuffer());
                     tokens.AddRange(RetrieveLetterBuffer());
+                    tokens.AddRange(RetrieveNumberBuffer());
 
                     tokens.Add(new Token(part, Token.Types.RightParenthesis));
                 }
@@ -126,17 +125,17 @@ namespace MathExpParser
 
         private bool IsNumber(string p_char)
         {
-            return Regex.IsMatch(p_char, StringFlag.RegexSyntax.IsNumber);
+            return Regex.IsMatch(p_char, StaticDataSet.RegexSyntax.IsNumber);
         }
 
         private bool IsVariable(string p_char)
         {
-            return Regex.IsMatch(p_char, StringFlag.RegexSyntax.IsVariable);
+            return Regex.IsMatch(p_char, StaticDataSet.RegexSyntax.IsVariable);
         }
 
         private bool IsOperator(string p_char)
         {
-            return Regex.IsMatch(p_char, StringFlag.RegexSyntax.IsOperator);
+            return Regex.IsMatch(p_char, StaticDataSet.RegexSyntax.IsOperator);
         }
 
         private bool isRightParenthesis(string p_char)

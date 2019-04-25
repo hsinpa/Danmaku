@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace MathExpParser
@@ -20,9 +19,18 @@ namespace MathExpParser
             { "tan", 1},
             { "arcsine", 1},
             { "arccos", 1},
+            { "atan", 1},
+            { "sqrt", 1},
+            { "abs", 1},
+            { "floor", 1},
+            { "ceil", 1},
+            { "round", 1},
+
             { "min", 2},
             { "max", 2},
             { "rand", 2},
+            { "atan2", 2},
+            { "clamp", 3},
         };
 
         #endregion
@@ -100,6 +108,7 @@ namespace MathExpParser
         {
             switch (token._value)
             {
+                #region Function with ONE input
                 case "sin":
                     return Mathf.Sin(input[0]);
 
@@ -109,11 +118,34 @@ namespace MathExpParser
                 case "tan":
                     return Mathf.Tan(input[0]);
 
-                case "arcsine ":
+                case "arcsine":
                     return Mathf.Asin(input[0]);
 
-                case "arccos ":
+                case "arccos":
                     return Mathf.Acos(input[0]);
+
+                case "atan":
+                    return Mathf.Atan(input[0]);
+
+                case "sqrt":
+                    return Mathf.Sqrt(input[0]);
+
+                case "abs":
+                    return Mathf.Abs(input[0]);
+
+                case "floor":
+                    return Mathf.FloorToInt(input[0]);
+
+                case "ceil":
+                    return Mathf.CeilToInt(input[0]);
+
+                case "round":
+                    return Mathf.RoundToInt(input[0]);
+                #endregion
+
+                #region Function with Two inputs
+                case "rand":
+                    return Random.Range(input[0], input[1]);
 
                 case "min":
                     return Mathf.Min(input);
@@ -121,8 +153,14 @@ namespace MathExpParser
                 case "max":
                     return Mathf.Max(input);
 
-                case "rand":
-                    return Random.Range(input[0], input[1]);
+                case "atan2":
+                    return Mathf.Atan2(input[0], input[1]);
+                #endregion
+
+                #region Function with ONE input
+                case "clamp":
+                    return Mathf.Clamp(input[0], input[1], input[2]);
+                #endregion
 
                 default:
                     return 0;

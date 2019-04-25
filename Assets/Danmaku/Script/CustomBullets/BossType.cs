@@ -28,8 +28,12 @@ public class BossType : MonoBehaviour {
 
     public Transform target;
 
+    private Animator customAnimator;
+    private bool isDead = false;
+
     private void Start()
     {
+        customAnimator = this.GetComponentInChildren<Animator>();
         bulletPattern = GetComponent<BulletPattern>();
         patternStartTime = Time.time;
     }
@@ -64,6 +68,23 @@ public class BossType : MonoBehaviour {
         } else {
             for (int i = 0; i < projectiles.Count; i++)
                 DestroyBullet(i);
+
+            PerformDeadAnimation();
+        }
+    }
+
+    private void PerformDeadAnimation() {
+        if (!isDead) {
+            isDead = true;
+
+            if (customAnimator != null)
+                customAnimator.SetTrigger("Explode");
+
+            StartCoroutine(Utility.GeneralUtility.DoDelayWork(1, () =>
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                this.enabled = false;
+            }));
         }
     }
 
@@ -95,7 +116,8 @@ public class BossType : MonoBehaviour {
 
                 float angular_velocity = bulletType.angular_velocity;
 
-                if (bulletType.followTarget) {
+                if (bulletType.followTarget)
+                {
                     angular_velocity = Utility.MathUtility.VectorToAngle((target.position - projectiles[i].transform.position).normalized);
 
                     angular_velocity = Mathf.LerpAngle((eulerAngles.z), NormalizeAngle(angular_velocity), bulletType.lerpPercent * Time.deltaTime);
@@ -103,9 +125,11 @@ public class BossType : MonoBehaviour {
 
                     projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
                 }
+                else {
+                    projectiles[i].angle = Time.deltaTime * angular_velocity;
+                    projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
+                }
 
-                //projectiles[i].angle = Time.deltaTime * angular_velocity;
-                //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
                 //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
 
 
