@@ -187,6 +187,8 @@ MonoBehaviour:
     range: 360
     radius: 0
     angular_velocity: 200
+    followTarget: 0
+    lerpPercent: 0
     numberOfBullet: 3
     onDurationEvent: phase_2
     bulletSpawnOffset: {x: 0, y: 0, z: 0}
@@ -200,6 +202,8 @@ MonoBehaviour:
     range: 360
     radius: 0
     angular_velocity: 120
+    followTarget: 0
+    lerpPercent: 0
     numberOfBullet: 5
     onDurationEvent: phase_3
     bulletSpawnOffset: {x: 0, y: 0, z: 0}
@@ -213,12 +217,14 @@ MonoBehaviour:
     range: 360
     radius: 0
     angular_velocity: 45
+    followTarget: 0
+    lerpPercent: 0
     numberOfBullet: 15
     onDurationEvent: phase_4
     bulletSpawnOffset: {x: 0, y: 0, z: 0}
   - _id: phase_4
     prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 270
+    angle: 0
     angleOnTarget: 1
     velocity: 12
     frequency: 0.2
@@ -226,6 +232,23 @@ MonoBehaviour:
     range: 90
     radius: 30
     angular_velocity: 0
+    followTarget: 0
+    lerpPercent: 0.2
     numberOfBullet: 10
+    onDurationEvent: phase_5
+    bulletSpawnOffset: {x: 0, y: 0, z: 0}
+  - _id: phase_5
+    prefab: {fileID: 1411318847061768, guid: 2d5e497ca1a44144cba690c62a2e084c, type: 3}
+    angle: 270
+    angleOnTarget: 1
+    velocity: 6
+    frequency: 0.5
+    duration: 6
+    range: 30
+    radius: 0
+    angular_velocity: 0
+    followTarget: 1
+    lerpPercent: 0.2
+    numberOfBullet: 8
     onDurationEvent: destroy
     bulletSpawnOffset: {x: 0, y: 0, z: 0}

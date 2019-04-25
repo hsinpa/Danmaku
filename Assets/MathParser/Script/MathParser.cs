@@ -8,26 +8,23 @@ namespace MathExpParser
     {
         Tokenizer _tokenizer;
         ShuntingYard _shuntinYard;
-        ShuntingYardOrigin _shuntinYardOrigin;
+        ShuntingYardParser _shuntinYardParser;
 
         public MathParser() {
             _tokenizer = new Tokenizer();
             _shuntinYard = new ShuntingYard();
-
-            _shuntinYardOrigin = new ShuntingYardOrigin();
+            _shuntinYardParser = new ShuntingYardParser();
         }
         
 
         public void Parse(string raw_syntax)
         {
             var tokens = _tokenizer.Parse(raw_syntax.ToLower());
-            //ToStringLog(tokens);
-            //var rpn_tokens = _shuntinYard.Parse(tokens);
 
-            var tokenList = _shuntinYardOrigin.Parse(tokens);
+            var tokenList = _shuntinYard.Parse(tokens);
 
             RPNToStringLog(tokenList);
-            //Debug.Log("Answer " + rpn_tokens.Solve());
+            Debug.Log("Answer " + _shuntinYardParser.Parse(tokenList));
             //rpn_tokens.Render();
         }
 

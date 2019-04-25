@@ -91,10 +91,22 @@ public class BossType : MonoBehaviour {
             {
                 var eulerAngles = projectiles[i].transform.rotation.eulerAngles;
 
-                projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * bulletType.angular_velocity;
+                //projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * bulletType.angular_velocity;
 
-                projectiles[i].angle = Time.deltaTime * bulletType.angular_velocity;
-                projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
+                float angular_velocity = bulletType.angular_velocity;
+
+                if (bulletType.followTarget) {
+                    angular_velocity = Utility.MathUtility.VectorToAngle((target.position - projectiles[i].transform.position).normalized);
+
+                    angular_velocity = Mathf.LerpAngle((eulerAngles.z), NormalizeAngle(angular_velocity), bulletType.lerpPercent * Time.deltaTime);
+
+
+                    projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
+                }
+
+                //projectiles[i].angle = Time.deltaTime * angular_velocity;
+                //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
+                //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
 
 
                 projectiles[i].transform.position += projectiles[i].transform.right * bulletType.velocity * Time.deltaTime;
@@ -106,6 +118,19 @@ public class BossType : MonoBehaviour {
             }
         }
     }
+
+    public float NormalizeAngle(float angle)
+    {
+        float result = angle / 360;
+
+        result = result - Mathf.FloorToInt(result);
+        result = result * 360;
+        if (result < 0) {
+            result = 360 - result;
+        }
+        return result;
+    }
+
 
     protected BaseProjectile CreateProjectile(float p_angle)
     {

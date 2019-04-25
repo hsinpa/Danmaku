@@ -23,6 +23,9 @@ public class BulletPattern : MonoBehaviour
         public float radius;
 
         public float angular_velocity;
+        public bool followTarget;
+        public float lerpPercent;
+
         public float numberOfBullet;
 
         public string onDurationEvent;

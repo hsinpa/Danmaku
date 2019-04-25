@@ -10,10 +10,10 @@ namespace MathExpParser
     public class ShuntingYard
     {
         #region Parameters
-        //private List<Token> outputQueue;
+        private List<Token> outputQueue;
         private Stack<Token> operatorStack;
 
-        private OutStack outputStack;
+        //private OutStack outputStack;
 
 
         private readonly Dictionary<string, string> AssociativityDict = new Dictionary<string, string> {
@@ -34,12 +34,12 @@ namespace MathExpParser
         #endregion
 
         public ShuntingYard() {
-            //outputQueue = new List<Token>();
+            outputQueue = new List<Token>();
             operatorStack = new Stack<Token>();
-            outputStack = new OutStack();
+            //outputStack = new OutStack();
         }
 
-        public ASTNode Parse(List<Token> p_tokens)
+        public List<Token> Parse(List<Token> p_tokens)
         {
             Clear();
             int tokenLength = p_tokens.Count;
@@ -51,7 +51,7 @@ namespace MathExpParser
                 //push it to the output queue.
                 if (t._type == Token.Types.Number || t._type == Token.Types.Variable)
                 {
-                    outputStack.stacks.Push( new ASTNode(t));
+                    outputQueue.Add((t));
                 }
 
                 //if the token is a function then:
@@ -69,7 +69,7 @@ namespace MathExpParser
                     while (operatorStack.Count > 0
                         && operatorStack.Peek()._type != Token.Types.LeftParenthesis)
                     {
-                        outputStack.AddNode(operatorStack.Pop());
+                        outputQueue.Add(operatorStack.Pop());
                     }
 
                 }
@@ -78,17 +78,27 @@ namespace MathExpParser
                 else if (t._type == Token.Types.Operator)
                 {
                     //while there is an operator token o2, at the top of the operator stack and either
-                    while (operatorStack.Count > 0 && (operatorStack.Peek()._type == Token.Types.Operator)
-                      //o1 is left-associative and its precedence is less than or equal to that of o2, or
-                      && ((GetAssociativity(t._value) == "left" && GetPrecedence(t._value) <= GetPrecedence(operatorStack.Peek()._value))
-                          //o1 is right associative, and has precedence less than that of o2,
-                          || (GetAssociativity(t._value) == "right" && GetPrecedence(t._value) < GetPrecedence(operatorStack.Peek()._value))))
+                    while (operatorStack.Count > 0 &&
+
+                    ( (operatorStack.Peek()._type == Token.Types.Function)
+                      || ((operatorStack.Peek()._type == Token.Types.Operator)
+
+                              && (GetPrecedence(operatorStack.Peek()._value) > GetPrecedence(t._value)
+                          || (GetPrecedence(t._value) == GetPrecedence(operatorStack.Peek()._value) && GetAssociativity(operatorStack.Peek()._value) == "left"))
+                    && (operatorStack.Peek()._type != Token.Types.LeftParenthesis)) ))
                     {
-                        outputStack.AddNode(operatorStack.Pop());
+                        outputQueue.Add(operatorStack.Pop());
                     }
 
-                    //at the end of iteration push o1 onto the operator stack
-                    operatorStack.Push(t);
+
+                        //      while ((there is a function at the top of the operator stack)
+                        // or(there is an operator at the top of the operator stack with greater precedence)
+                        // or(the operator at the top of the operator stack has equal precedence and is left associative))
+                        //and(the operator at the top of the operator stack is not a left parenthesis):
+
+
+                        //at the end of iteration push o1 onto the operator stack
+                        operatorStack.Push(t);
                 }
 
 
@@ -105,17 +115,17 @@ namespace MathExpParser
                     //pop the operator from the operator stack onto the output queue.
                     while (operatorStack.Count > 0 && operatorStack.Peek()._type != Token.Types.LeftParenthesis)
                     {
-                        outputStack.AddNode(operatorStack.Pop());
+                        outputQueue.Add(operatorStack.Pop());
                     }
 
                     //if there is a left paren at the top of the operator stack, then:
                     //pop the operator from the operator stack and discard it
-                    //if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.LeftParenthesis)
-                    operatorStack.Pop();
+                    if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.LeftParenthesis)
+                        operatorStack.Pop();
 
                     //after while loop, if operator stack not null, pop everything to output queue
-                    if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.Function)
-                        outputStack.AddNode(operatorStack.Pop());
+                    //if (operatorStack.Count > 0 && operatorStack.Peek()._type == Token.Types.Function)
+                    //    outputQueue.Add(operatorStack.Pop());
                 }
             }
 
@@ -123,9 +133,9 @@ namespace MathExpParser
             //while there are still operator tokens on the stack:
             //pop the operator from the operator stack onto the output queue.
             while (operatorStack.Count > 0)
-                outputStack.AddNode(operatorStack.Pop());
+                outputQueue.Add(operatorStack.Pop());
 
-            return outputStack.stacks.Pop();
+            return outputQueue;
         }
 
         private string GetAssociativity(string p_operator) {
@@ -143,13 +153,13 @@ namespace MathExpParser
                 return PrecedenceDict[p_operator];
             }
 
-            return 5;
+            return 4;
         }
 
 
         private void Clear()
         {
-            outputStack.stacks.Clear();
+            outputQueue.Clear();
             operatorStack.Clear();
         }
 
