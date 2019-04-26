@@ -75,7 +75,7 @@ namespace MathExpParser
                 }
             }
             catch {
-                Debug.LogError("Encounter incorrect syntax");
+                Debug.LogError("Encounter incorrect syntax, have you assign value to variable?");
             }
 
             return outputStack.Pop();

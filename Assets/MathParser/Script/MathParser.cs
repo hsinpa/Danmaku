@@ -12,6 +12,8 @@ namespace MathExpParser
 
         Dictionary<string, float> _customLookupTable;
 
+        public bool debugMode = false;
+
         public MathParser() {
             _tokenizer = new Tokenizer();
             _shuntinYard = new ShuntingYard();
@@ -19,29 +21,55 @@ namespace MathExpParser
             _customLookupTable = new Dictionary<string, float>();
         }
 
+        /// <summary>
+        /// Global Variable lookuptable
+        /// </summary>
+        /// <param name="p_lookupTable"></param>
         public void SetVariableLookUpTable(Dictionary<string, float> p_lookupTable) {
             _customLookupTable = p_lookupTable;
         }
 
-        public void Parse(string raw_syntax, bool debug_mode = false)
+        /// <summary>
+        /// Return ShuntingYard symbol for later use.
+        /// </summary>
+        /// <param name="raw_syntax">string of math expression</param>
+        /// <param name="debug_mode">Want more debug info</param>
+        /// <returns></returns>
+        public List<Token> ParseMathExpression(string raw_syntax)
         {
             string newSyntax = ReplaceVariable(StaticDataSet.PredefineVariableTable, raw_syntax);
                    newSyntax = raw_syntax.ToLower();
 
             var tokens = _tokenizer.Parse(newSyntax);
-                tokens = ReplaceVariable(_customLookupTable, tokens);
 
             var tokenList = _shuntinYard.Parse(tokens);
 
-            if (debug_mode)
+            if (debugMode)
                 TokenToStringLog(tokens);
 
-            if (debug_mode)
-                RPNToStringLog(tokenList);
-            //Debug.Log("Answer " + _shuntinYardParser.Parse(tokenList));
-            //rpn_tokens.Render();
+            if (debugMode)
+                Debug.Log("Answer " + ParseShuntingYardToken(tokenList));
+
+            return tokenList;
         }
 
+        /// <summary>
+        /// Solve for answer
+        /// </summary>
+        /// <param name="p_shuntinYardTokens">Parsed ShuntinYard Tokens</param>
+        /// <param name="p_varaibleLookupTable">(Optional) LookupTable for varaible, will override the previous lookuptable data</param>
+        /// <returns></returns>
+        public float ParseShuntingYardToken(List<Token> p_shuntinYardTokens, Dictionary<string, float> p_varaibleLookupTable = null) {
+            if (p_varaibleLookupTable != null)
+                _customLookupTable = p_varaibleLookupTable;
+
+            p_shuntinYardTokens = ReplaceVariable(_customLookupTable, p_shuntinYardTokens);
+
+            if (debugMode)
+                RPNToStringLog(p_shuntinYardTokens);
+
+            return _shuntinYardParser.Parse(p_shuntinYardTokens);
+        }
 
         private List<Token> ReplaceVariable(Dictionary<string, float> lookupTable, List<Token> tokens) {
             if (lookupTable == null)
@@ -51,10 +79,10 @@ namespace MathExpParser
                 Token token = tokens[i];
                 if (token._type == Token.Types.Variable && lookupTable.ContainsKey(token._value))
                 {
-                    float r_value = lookupTable[token._value];
-
                     token._type = Token.Types.Number;
-                    token._value = r_value.ToString();
+                    token._value = lookupTable[token._value].ToString();
+
+                    Debug.Log(token._type +" , "+token._value);
                 }
             }
             return tokens;
@@ -86,5 +114,6 @@ namespace MathExpParser
 
             Debug.Log(groupString);
         }
+
     }
 }
