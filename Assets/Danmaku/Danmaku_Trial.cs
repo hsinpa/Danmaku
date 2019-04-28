@@ -37,13 +37,13 @@ public class Danmaku_Trial : MonoBehaviour {
 
                 var eulerAngles = projectiles[i].transform.rotation.eulerAngles;
 
-                projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * angular_velocity;
+                projectiles[i].angularVelocity = Mathf.Sin(Time.time) * Time.deltaTime * angular_velocity;
 
 
-                projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle)  );
+                projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angularVelocity)  );
             }
         }
-        Debug.Log(projectiles[0].angle);
+        Debug.Log(projectiles[0].angularVelocity);
     }
 
     private BaseProjectile CreateProjectile(float p_angle) {

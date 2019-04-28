@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5561308a8f59ac940b4b3201aec72b3a, type: 3}
+  m_Name: DanmakuEditor_01
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 114096816210557690}
+  - {fileID: 114634369995141244}
+  - {fileID: 114412066513035064}
+--- !u!114 &114096816210557690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6463f392ea55f4ebdb7250ba0d54d4, type: 3}
+  m_Name: BulletWave
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -360, y: -152}
+  ports:
+    keys:
+    - patterns
+    values:
+    - _fieldName: patterns
+      _node: {fileID: 114096816210557690}
+      _typeQualifiedName: DanmakuEditor.BulletPattern[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: patterns
+        node: {fileID: 114634369995141244}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  patterns:
+  - {fileID: 114634369995141244}
+  default_pattern_id: 
+--- !u!114 &114412066513035064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615299ce860d37d488375bfe3145ad0b, type: 3}
+  m_Name: Normal Bullet
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1288, y: -520}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: 114412066513035064}
+      _typeQualifiedName: DanmakuEditor.NormalBullet, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: bulletType
+        node: {fileID: 114634369995141244}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: bubble_1
+  poolObjectID: bullet_type_01
+  sprite: {fileID: 21300002, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
+  scale: {x: 1.6, y: 1}
+  start_angle: 270
+  angleOnTarget: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
+  velocity: 4
+  range: 0
+  radius: 0
+  angular_velocity: 0
+  followTarget: 0
+  lerpPercent: 0
+  numberOfBullet: 2
+  start_delay: 1
+  frequency: 0.3
+  duration: 5
+  node: {fileID: 0}
+--- !u!114 &114634369995141244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd9edef4340ccc4bbabe9e1353493d7, type: 3}
+  m_Name: Bullet Pattern
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -728, y: -184}
+  ports:
+    keys:
+    - bulletType
+    - patterns
+    values:
+    - _fieldName: bulletType
+      _node: {fileID: 114634369995141244}
+      _typeQualifiedName: DanmakuEditor.BaseBullet[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: node
+        node: {fileID: 114412066513035064}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: patterns
+      _node: {fileID: 114634369995141244}
+      _typeQualifiedName: DanmakuEditor.BulletPattern, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: patterns
+        node: {fileID: 114096816210557690}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  bulletType:
+  - {fileID: 114412066513035064}
+  patterns: {fileID: 0}
+  _id: wave_01
+  name: 
+  duration: 6
+  next_pattern_id: destroy

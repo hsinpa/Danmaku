@@ -126,8 +126,8 @@ public class BossType : MonoBehaviour {
                     projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
                 }
                 else {
-                    projectiles[i].angle = Time.deltaTime * angular_velocity;
-                    projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
+                    projectiles[i].angularVelocity = Time.deltaTime * angular_velocity;
+                    projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angularVelocity));
                 }
 
                 //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));

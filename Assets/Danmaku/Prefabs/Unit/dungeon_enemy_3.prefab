@@ -112,8 +112,7 @@ GameObject:
   - component: {fileID: 900434551495025440}
   - component: {fileID: 900434551495025441}
   - component: {fileID: 900434551495025442}
-  - component: {fileID: 268171937472264724}
-  - component: {fileID: 767652789}
+  - component: {fileID: 8954945155381574309}
   m_Layer: 8
   m_Name: dungeon_enemy_3
   m_TagString: Untagged
@@ -217,7 +216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900434551495025468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f38c5775284f4a54a855103a85f3a3c7, type: 3}
   m_Name: 
@@ -227,7 +226,7 @@ MonoBehaviour:
   isKillable: 0
   team: 1
   target: {fileID: 0}
-  autoMove: 1
+  autoMove: 0
 --- !u!50 &900434551495025442
 Rigidbody2D:
   serializedVersion: 4
@@ -249,7 +248,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &268171937472264724
+--- !u!114 &8954945155381574309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,112 +257,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 900434551495025468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ebea3e85f780144a00bce36e10a59b, type: 3}
+  m_Script: {fileID: 11500000, guid: e71897a6926ddf342a8e9cffc08791f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileHolder: {fileID: 0}
-  testMode: 1
-  target: {fileID: 0}
---- !u!114 &767652789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900434551495025468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a7f7bcff900cb541b197f45e2b50820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType:
-  - _id: phase_1
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 0
-    angleOnTarget: 0
-    velocity: 5
-    frequency: 0.2
-    duration: 4
-    range: 360
-    radius: 0
-    angular_velocity: 200
-    followTarget: 0
-    lerpPercent: 0
-    numberOfBullet: 3
-    onDurationEvent: phase_2
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_2
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 180
-    angleOnTarget: 0
-    velocity: 9
-    frequency: 0.2
-    duration: 5
-    range: 360
-    radius: 0
-    angular_velocity: 120
-    followTarget: 0
-    lerpPercent: 0
-    numberOfBullet: 5
-    onDurationEvent: phase_3
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_3
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 270
-    angleOnTarget: 1
-    velocity: 5
-    frequency: 0.2
-    duration: 6
-    range: 360
-    radius: 0
-    angular_velocity: 45
-    followTarget: 0
-    lerpPercent: 0
-    numberOfBullet: 15
-    onDurationEvent: phase_4
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_4
-    prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-    angle: 0
-    angleOnTarget: 1
-    velocity: 12
-    frequency: 0.2
-    duration: 2
-    range: 90
-    radius: 30
-    angular_velocity: 0
-    followTarget: 0
-    lerpPercent: 0.2
-    numberOfBullet: 10
-    onDurationEvent: phase_5
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_5
-    prefab: {fileID: 1411318847061768, guid: 2d5e497ca1a44144cba690c62a2e084c, type: 3}
-    angle: 270
-    angleOnTarget: 1
-    velocity: 5
-    frequency: 0.5
-    duration: 8
-    range: 180
-    radius: 0
-    angular_velocity: 0
-    followTarget: 1
-    lerpPercent: 0.3
-    numberOfBullet: 5
-    onDurationEvent: phase_6
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
-  - _id: phase_6
-    prefab: {fileID: 1411318847061768, guid: 2d5e497ca1a44144cba690c62a2e084c, type: 3}
-    angle: 270
-    angleOnTarget: 1
-    velocity: 6
-    frequency: 0.5
-    duration: 4
-    range: 120
-    radius: 0
-    angular_velocity: 0
-    followTarget: 1
-    lerpPercent: 0.1
-    numberOfBullet: 4
-    onDurationEvent: destroy
-    bulletSpawnOffset: {x: 0, y: 0, z: 0}
+  _bulletGraph: {fileID: 0}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Utility;
+using Pooling;
 
 [System.Serializable]
 public class LevelManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private List<Wave> waves;
+
+    [SerializeField]
+    private Pooling.STPTheme themeObject;
 
     private int waveIndex;
 
@@ -43,7 +47,17 @@ public class LevelManager : MonoBehaviour
         player.SetUp(projectileHolder);
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
-        StartCoroutine( Spawn(1, PrepareWave() ) );
+        PreparePoolingObject(themeObject);
+        //StartCoroutine( Spawn(1, PrepareWave() ) );
+    }
+
+    private void PreparePoolingObject(STPTheme p_themeObject) {
+        if (p_themeObject.stpObjectHolder != null) {
+            for (int i = 0; i < p_themeObject.stpObjectHolder.Count; i++) {
+                var stpObject = p_themeObject.stpObjectHolder[i];
+                PoolManager.instance.CreatePool(stpObject.prefab, stpObject._id, stpObject.poolingNum);
+            }
+        }
     }
 
     public List<AIUnit> PrepareWave() {

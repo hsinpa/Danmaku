@@ -43,8 +43,8 @@ public class ShotgunType : BaseBullet {
 
                 //projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * angular_velocity;
 
-                projectiles[i].angle = Time.deltaTime * angular_velocity;
-                projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angle));
+                projectiles[i].angularVelocity = Time.deltaTime * angular_velocity;
+                projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectiles[i].angularVelocity));
 
 
                 projectiles[i].transform.position += projectiles[i].transform.right * velocity * Time.deltaTime;
