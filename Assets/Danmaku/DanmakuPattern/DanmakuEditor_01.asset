@@ -16,6 +16,55 @@ MonoBehaviour:
   - {fileID: 114096816210557690}
   - {fileID: 114634369995141244}
   - {fileID: 114412066513035064}
+  - {fileID: 114089273586418696}
+  - {fileID: 114107802116579306}
+--- !u!114 &114089273586418696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7296b91763e051b4587fbeec56d3c79b, type: 3}
+  m_Name: Bullet Path
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -2216, y: -1064}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: 114089273586418696}
+      _typeQualifiedName: DanmakuEditor.BulletPath, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: path
+        node: {fileID: 114412066513035064}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  node: {fileID: 0}
+  type: 1
+  start_angle: 0
+  angleOnTarget: 0
+  start_delay: 0.5
+  transition: 0
+  range: 0
+  radius: 0
+  numberOfBullet: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  velocity: 0.5
+  angular_velocity: 0
+  followTarget: 0
+  lerpPercent: 0
+  frequency: 0
+  duration: 3
+  constraint: 
 --- !u!114 &114096816210557690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,6 +98,53 @@ MonoBehaviour:
   patterns:
   - {fileID: 114634369995141244}
   default_pattern_id: 
+--- !u!114 &114107802116579306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7296b91763e051b4587fbeec56d3c79b, type: 3}
+  m_Name: Bullet Path
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -2456, y: -1192}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: 114107802116579306}
+      _typeQualifiedName: DanmakuEditor.BulletPath, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: path
+        node: {fileID: 114412066513035064}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  node: {fileID: 0}
+  type: 1
+  start_angle: 270
+  angleOnTarget: 0
+  start_delay: 1
+  transition: 0
+  range: 0
+  radius: 0
+  numberOfBullet: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  velocity: 3
+  angular_velocity: 0
+  followTarget: 0
+  lerpPercent: 0
+  frequency: 0.3
+  duration: 1
+  constraint: 
 --- !u!114 &114412066513035064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,10 +158,11 @@ MonoBehaviour:
   m_Name: Normal Bullet
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1288, y: -520}
+  position: {x: -1832, y: -1128}
   ports:
     keys:
     - node
+    - path
     values:
     - _fieldName: node
       _node: {fileID: 114412066513035064}
@@ -79,23 +176,30 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: path
+      _node: {fileID: 114412066513035064}
+      _typeQualifiedName: DanmakuEditor.BulletPath[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: node
+        node: {fileID: 114089273586418696}
+        reroutePoints: []
+      - fieldName: node
+        node: {fileID: 114107802116579306}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  path:
+  - {fileID: 114107802116579306}
+  - {fileID: 114089273586418696}
   _id: bubble_1
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300002, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1.6, y: 1}
-  start_angle: 270
-  angleOnTarget: 0
-  spawnOffset: {x: 0, y: 0, z: 0}
-  velocity: 4
-  range: 0
-  radius: 0
-  angular_velocity: 0
-  followTarget: 0
-  lerpPercent: 0
-  numberOfBullet: 2
-  start_delay: 1
-  frequency: 0.3
-  duration: 5
+  fireCd: 2
+  loadUpCd: 1
   node: {fileID: 0}
 --- !u!114 &114634369995141244
 MonoBehaviour:
@@ -110,7 +214,7 @@ MonoBehaviour:
   m_Name: Bullet Pattern
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -728, y: -184}
+  position: {x: -744, y: -200}
   ports:
     keys:
     - bulletType

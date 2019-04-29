@@ -7,7 +7,6 @@ namespace DanmakuEditor
 {
     public class NormalBullet : BaseBullet
     {
-
         [Output(connectionType = ConnectionType.Multiple)] public NormalBullet node;
 
         public override object GetValue(NodePort port)
@@ -24,7 +23,10 @@ namespace DanmakuEditor
         {
             base.Init();
             poolObjectID = "bullet_type_01";
+
+            path = SortByHeight<BulletPath>(GetInputValues<BulletPath>("path", path));
         }
+
 
 
     }

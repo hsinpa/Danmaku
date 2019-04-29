@@ -29,11 +29,13 @@ public class ProjectileHandler : MonoBehaviour
         for (int i = 0; i < projectileHolder.Count; i++) {
             if (projectileHolder[i] != null && projectileHolder[i].baseBullet != null) {
                 var bulletInfo = projectileHolder[i].baseBullet;
+                var bulletPath = projectileHolder[i].currentBulletPath;
+
                 var eulerAngles = projectileHolder[i].transform.rotation.eulerAngles;
 
                 //projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * bulletType.angular_velocity;
 
-                float angular_velocity = bulletInfo.angular_velocity;
+                float angular_velocity = bulletPath.angular_velocity;
 
                 //if (bulletInfo.followTarget)
                 //{
@@ -46,18 +48,26 @@ public class ProjectileHandler : MonoBehaviour
                 //}
                 //else
                 //{
-                    projectileHolder[i].angularVelocity = Time.deltaTime * angular_velocity;
-                    projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectileHolder[i].angularVelocity));
+                projectileHolder[i].angularVelocity = Time.deltaTime * angular_velocity;
+                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectileHolder[i].angularVelocity));
                 //}
 
                 //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
 
 
-                projectileHolder[i].transform.position += projectileHolder[i].transform.right * bulletInfo.velocity * Time.deltaTime;
+                projectileHolder[i].transform.position += projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
 
-                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < Time.time)
+                if (bulletPath.duration + projectileHolder[i].spawnTime < Time.time)
                 {
-                    DestroyBullet(i);
+                    if (projectileHolder[i].IsLastPath)
+                    {
+                        DestroyBullet(i);
+                    }
+                    else {
+                        projectileHolder[i].SetNextPath(Time.time);
+                    }
+
+
                 }
 
             }
@@ -73,6 +83,8 @@ public class ProjectileHandler : MonoBehaviour
     {
         if (projectileHolder.Count > bulletIndex) {
             BaseProjectile baseProjectile = projectileHolder[bulletIndex];
+            baseProjectile.Reset();
+
             projectileHolder.RemoveAt(bulletIndex);
             PoolManager.instance.Destroy(baseProjectile.gameObject);
         }
