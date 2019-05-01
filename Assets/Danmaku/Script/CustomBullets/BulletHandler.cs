@@ -66,12 +66,12 @@ public class BulletHandler : MonoBehaviour
 
                 for (int b = 0; b < initBulletPath.numberOfBullet; b++)
                 {
-                    //var projectile = SetProjectile(baseBullet, (startAngle + (incrementalAngle * b)));
+                    var projectile = SetProjectile(baseBullet, (startAngle + (incrementalAngle * b)));
 
-                    //float fireQueueIndex = (fireQueue == 0) ? (baseBullet.fireNumCd - 1)  : (fireQueue - 1);
-                    //float duration_percentage = (baseBullet.fireNumCd - fireQueueIndex) / baseBullet.fireNumCd;
+                    float fireQueueIndex = (fireQueue == 0) ? (baseBullet.fireNumCd - 1) : (fireQueue - 1);
+                    float duration_percentage = (baseBullet.fireNumCd - fireQueueIndex) / baseBullet.fireNumCd;
 
-                    //projectile.duration = initBulletPath.duration * duration_percentage;
+                    projectile.duration = initBulletPath.duration * duration_percentage;
                 }
 
                 RecordTimeTable[baseBullet._id] = Time.time + initBulletPath.frequency;
