@@ -8,6 +8,13 @@ public class ProjectileHandler : MonoBehaviour
     [SerializeField]
     List<BaseProjectile> projectileHolder = new List<BaseProjectile>();
 
+    [SerializeField]
+    MathParserRouter mathRouter;
+
+    public void SetUp() {
+
+    }
+
     public void Enqueue(BaseProjectile p_projectile) {
         p_projectile.transform.SetParent(this.transform);
     }
@@ -26,6 +33,8 @@ public class ProjectileHandler : MonoBehaviour
 
     public void Update()
     {
+        mathRouter.Refresh();
+
         for (int i = 0; i < projectileHolder.Count; i++) {
             if (projectileHolder[i] != null && projectileHolder[i].baseBullet != null) {
                 var bulletInfo = projectileHolder[i].baseBullet;
@@ -35,7 +44,9 @@ public class ProjectileHandler : MonoBehaviour
 
                 //projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * bulletType.angular_velocity;
 
-                float angular_velocity = bulletPath.angular_velocity;
+                //projectileHolder[i].UpdateAngularVelocity(bulletPath.angular_velocity_formula);
+                float angular_velocity = mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
+                //float angular_velocity = 0;
 
                 //if (bulletInfo.followTarget)
                 //{
@@ -48,8 +59,7 @@ public class ProjectileHandler : MonoBehaviour
                 //}
                 //else
                 //{
-                projectileHolder[i].angularVelocity = Time.deltaTime * angular_velocity;
-                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + projectileHolder[i].angularVelocity));
+                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (Time.deltaTime * angular_velocity) ));
                 //}
 
                 //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
@@ -57,7 +67,7 @@ public class ProjectileHandler : MonoBehaviour
 
                 projectileHolder[i].transform.position += projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
 
-                if (bulletPath.duration + projectileHolder[i].spawnTime < Time.time)
+                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < Time.time)
                 {
                     if (projectileHolder[i].IsLastPath)
                     {
@@ -66,8 +76,6 @@ public class ProjectileHandler : MonoBehaviour
                     else {
                         projectileHolder[i].SetNextPath(Time.time);
                     }
-
-
                 }
 
             }

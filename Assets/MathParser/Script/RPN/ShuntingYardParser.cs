@@ -5,10 +5,7 @@ namespace MathExpParser
 {
     public class ShuntingYardParser
     {
-
-        #region Private Parameters
-        private Stack<float> outputStack;
-
+        #region Parameter
         /// <summary>
         /// string = function value
         /// int = needed input length
@@ -35,12 +32,8 @@ namespace MathExpParser
 
         #endregion
 
-        public ShuntingYardParser() {
-            outputStack = new Stack<float>();
-        }
-
         public float Parse(List<Token> shuntingYard_tokens) {
-            outputStack.Clear();
+            Stack<float> outputStack = new Stack<float>();
 
             try
             {
@@ -77,6 +70,9 @@ namespace MathExpParser
             catch {
                 Debug.LogError("Encounter incorrect syntax, have you assign value to variable?");
             }
+
+            if (outputStack.Count <= 0)
+                return 0;
 
             return outputStack.Pop();
         }

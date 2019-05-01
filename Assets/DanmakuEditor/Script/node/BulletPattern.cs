@@ -28,8 +28,16 @@ namespace DanmakuEditor
         protected override void Init()
         {
             base.Init();
+            bulletType = GetInputValues<BaseBullet>("bulletType", null);
+        }
 
-            bulletType = GetInputValues<BaseBullet>("bulletType", bulletType);
+        public override void OnCreateConnection(NodePort from, NodePort to)
+        {
+            bulletType = GetInputValues<BaseBullet>(to.fieldName, null);
+        }
+
+        public override void OnRemoveConnection(NodePort port) {
+            bulletType = GetInputValues<BaseBullet>(port.fieldName, null);
         }
 
 

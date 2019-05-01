@@ -13,7 +13,7 @@ namespace DanmakuEditor
         public Type type = Type.Continuous;
 
         [Header("Spawn Properties")]
-        public float start_angle;
+        public string angle_formula;
         public bool angleOnTarget;
         public float start_delay;
         public float transition;
@@ -27,7 +27,8 @@ namespace DanmakuEditor
         [Header("Continuous Properties")]
         public float velocity;
 
-        public float angular_velocity;
+        public string angular_velocity_formula;
+
         public bool followTarget;
         public float lerpPercent;
 
@@ -53,6 +54,13 @@ namespace DanmakuEditor
             }
 
             return null;
+        }
+
+        protected override void Init()
+        {
+            base.Init();
+
+            //bulletType = GetInputValues<BaseBullet>("bulletType", bulletType);
         }
 
     }

@@ -15,6 +15,12 @@ namespace MathExpParser
             _type = type;
         }
 
+        public void Set(string value, Types type)
+        {
+            _value = value;
+            _type = type;
+        }
+
         public enum Types {
             Number,
             Variable,

@@ -21,5 +21,12 @@ namespace DanmakuEditor {
         }
         private BulletWave _bulletWave;
 
+
+        [ContextMenu("Save Record")]
+        public void SaveRecord()
+        {
+
+        }
+
     }
 }

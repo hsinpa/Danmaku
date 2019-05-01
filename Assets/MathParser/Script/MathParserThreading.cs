@@ -98,7 +98,9 @@ namespace MathExpParser
                     for (int i = 0; i < itemsInQueue; i++)
                     {
                         TaskResult result = results.Dequeue();
-                        result.callback(result.parseResult);
+
+                        if (result.callback != null)
+                            result.callback(result.parseResult);
                     }
                 }
             }

@@ -159,8 +159,8 @@ namespace MathExpParser
 
         private void Clear()
         {
-            outputQueue.Clear();
-            operatorStack.Clear();
+            outputQueue = new List<Token>();
+            operatorStack = new Stack<Token>();
         }
 
         private class OutStack {

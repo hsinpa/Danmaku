@@ -79,10 +79,8 @@ namespace MathExpParser
                 Token token = tokens[i];
                 if (token._type == Token.Types.Variable && lookupTable.ContainsKey(token._value))
                 {
-                    token._type = Token.Types.Number;
-                    token._value = lookupTable[token._value].ToString();
-
-                    Debug.Log(token._type +" , "+token._value);
+                    //tokens[i].Set(lookupTable[token._value].ToString(), Token.Types.Number);
+                    tokens[i] = new Token(lookupTable[token._value].ToString(), Token.Types.Number);
                 }
             }
             return tokens;
@@ -96,7 +94,7 @@ namespace MathExpParser
             return p_raw_input;
         }
 
-        private void TokenToStringLog(List<Token> tokens)
+        public void TokenToStringLog(List<Token> tokens)
         {
             for (int i = 0; i < tokens.Count; i++)
             {

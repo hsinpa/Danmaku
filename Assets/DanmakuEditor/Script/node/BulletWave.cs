@@ -36,8 +36,16 @@ namespace DanmakuEditor
         {
             base.Init();
             name = "BulletWave";
+        }
 
-            patterns = GetInputValues<DanmakuEditor.BulletPattern>("patterns", patterns);
+        public override void OnCreateConnection(NodePort from, NodePort to)
+        {
+            patterns = GetInputValues<DanmakuEditor.BulletPattern>(to.fieldName, patterns);
+        }
+
+        public override void OnRemoveConnection(NodePort port)
+        {
+            patterns = GetInputValues<DanmakuEditor.BulletPattern>(port.fieldName, patterns);
         }
 
     }

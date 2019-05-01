@@ -47,10 +47,25 @@ namespace MathExpParser
                 }
                 else if (IsOperator(part))
                 {
+                    //Handle special case for "-"
+                    if (part == "-")
+                    {
+                        var tokenCount = (tokens.Count);
+
+                        if (tokenCount == 0 || tokens[tokenCount - 1]._type == Token.Types.LeftParenthesis || (tokens[tokenCount - 1]._type == Token.Types.Operator))
+                        {
+
+                            tokens.Add(new Token("-1", Token.Types.Number));
+                            tokens.Add(new Token("*", Token.Types.Operator));
+                            continue;
+                        }
+                    }
+
                     tokens.AddRange(RetrieveNumberBuffer());
                     tokens.AddRange(RetrieveLetterBuffer());
 
                     tokens.Add(new Token(part, Token.Types.Operator));
+                    
                 }
                 else if (isLeftParenthesis(part))
                 {
@@ -151,7 +166,7 @@ namespace MathExpParser
         #endregion
 
         private void Clear() {
-            tokens.Clear();
+            tokens = new List<Token>();
             numberBuffer.Clear();
             letterBuffer.Clear();
         }

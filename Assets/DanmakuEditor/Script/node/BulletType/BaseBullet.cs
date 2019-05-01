@@ -15,7 +15,7 @@ namespace DanmakuEditor {
         public Sprite sprite;
         public Vector2 scale = Vector2.one;
 
-        public float fireCd;
+        public int fireNumCd;
         public float loadUpCd;
 
         //public bool angleOnTarget;
@@ -39,8 +39,19 @@ namespace DanmakuEditor {
 
 
         protected T[] SortByHeight<T>(T[] nodeArray) where T : XNode.Node {
+            if (nodeArray == null) return default(T[]);
             List<T> toList = nodeArray.ToList();
             return toList.OrderBy(x => x.position.y).ToArray();
+        }
+
+        public override void OnCreateConnection(NodePort from, NodePort to)
+        {
+            path = GetInputValues<DanmakuEditor.BulletPath>(to.fieldName, path);
+        }
+
+        public override void OnRemoveConnection(NodePort port)
+        {
+            path = GetInputValues<DanmakuEditor.BulletPath>(port.fieldName, path);
         }
 
     }

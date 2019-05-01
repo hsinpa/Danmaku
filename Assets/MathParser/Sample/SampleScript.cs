@@ -15,7 +15,7 @@ namespace MathExpParser
             Dictionary<string, float> testDict = new Dictionary<string, float>
             {
                 {"p", 5 },
-                { "i", 3}
+                { "t", 3}
             };
 
             mathParser.debugMode = true;

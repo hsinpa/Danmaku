@@ -31,9 +31,22 @@ public class BaseProjectile : MonoBehaviour {
         spawnTime = p_timeSpawn;
 
         pathIndex = (pathIndex + 1);
-
-        transform.rotation = Quaternion.Euler(0, 0, currentBulletPath.start_angle);
+        duration = currentBulletPath.duration;
+        
+        transform.rotation = Quaternion.Euler(0, 0, MathParserRouter.Instance.CalculateAnswer(currentBulletPath.angle_formula));
     }
+
+    public void UpdateAngularVelocity(string p_math_expression) {
+
+        var shuntingYardToken = MathParserRouter.Instance.GetCacheToken(p_math_expression);
+
+        MathExpParser.MathParserThreading.Instance.FastCalculateAsyn(shuntingYardToken, (MathExpParser.MathParserThreading.ParseResult result) =>
+        {
+           angularVelocity = result.answer;
+
+        }, MathParserRouter.Instance.GetUniversalKeyword());
+    }
+    
 
     public void Reset()
     {
