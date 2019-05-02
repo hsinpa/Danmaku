@@ -83,6 +83,7 @@ namespace MathExpParser
                     tokens[i] = new Token(lookupTable[token._value].ToString(), Token.Types.Number);
                 }
             }
+
             return tokens;
         }
 

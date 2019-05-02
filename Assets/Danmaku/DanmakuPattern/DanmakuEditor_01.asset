@@ -55,7 +55,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 
+  angle_formula: 270
   angleOnTarget: 0
   start_delay: 0.5
   transition: 0
@@ -63,8 +63,8 @@ MonoBehaviour:
   radius: 0
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
-  velocity: 3
-  angular_velocity_formula: 0
+  velocity: 4
+  angular_velocity_formula: 15
   followTarget: 0
   lerpPercent: 0
   frequency: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: Bullet Path
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -2552, y: -856}
+  position: {x: -2328, y: -744}
   ports:
     keys:
     - node
@@ -135,7 +135,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 
+  angle_formula: 200
   angleOnTarget: 0
   start_delay: 1
   transition: 0
@@ -143,12 +143,12 @@ MonoBehaviour:
   radius: 0
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
-  velocity: 4
-  angular_velocity_formula: 
+  velocity: 3
+  angular_velocity_formula: 0
   followTarget: 0
   lerpPercent: 0
-  frequency: 0.3
-  duration: 1
+  frequency: 0.25
+  duration: 2
   constraint: 
 --- !u!114 &114117379949854628
 MonoBehaviour:
@@ -182,7 +182,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 
+  angle_formula: 340
   angleOnTarget: 0
   start_delay: 1
   transition: 0
@@ -190,11 +190,11 @@ MonoBehaviour:
   radius: 0
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
-  velocity: 2
-  angular_velocity_formula: 
+  velocity: 3
+  angular_velocity_formula: 0
   followTarget: 0
   lerpPercent: 0
-  frequency: 0.6
+  frequency: 0.25
   duration: 2
   constraint: 
 --- !u!114 &114164937813637636
@@ -246,7 +246,7 @@ MonoBehaviour:
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300008, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1, y: 1}
-  fireNumCd: 4
+  fireNumCd: 2
   loadUpCd: 1
   node: {fileID: 0}
 --- !u!114 &114311109994497660
@@ -281,7 +281,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 
+  angle_formula: 270 + (sin(t) * 20)
   angleOnTarget: 0
   start_delay: 0
   transition: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   followTarget: 0
   lerpPercent: 0
   frequency: 0.15
-  duration: 5
+  duration: 4
   constraint: 
 --- !u!114 &114412066513035064
 MonoBehaviour:
@@ -349,7 +349,7 @@ MonoBehaviour:
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300000, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1.6, y: 1}
-  fireNumCd: 4
+  fireNumCd: 5
   loadUpCd: 0.05
   node: {fileID: 114412066513035064}
 --- !u!114 &114426886241097488
@@ -384,7 +384,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 
+  angle_formula: 270
   angleOnTarget: 0
   start_delay: 0.5
   transition: 0
@@ -392,8 +392,8 @@ MonoBehaviour:
   radius: 0
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
-  velocity: 1
-  angular_velocity_formula: 
+  velocity: 4
+  angular_velocity_formula: -15
   followTarget: 0
   lerpPercent: 0
   frequency: 0
@@ -424,13 +424,13 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: node
-        node: {fileID: 114164937813637636}
-        reroutePoints: []
-      - fieldName: node
         node: {fileID: 114412066513035064}
         reroutePoints: []
       - fieldName: node
         node: {fileID: 114958365240871062}
+        reroutePoints: []
+      - fieldName: node
+        node: {fileID: 114164937813637636}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -449,9 +449,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   bulletType:
-  - {fileID: 114164937813637636}
   - {fileID: 114412066513035064}
   - {fileID: 114958365240871062}
+  - {fileID: 114164937813637636}
   patterns: {fileID: 0}
   _id: wave_01
   name: 
@@ -510,6 +510,6 @@ MonoBehaviour:
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300000, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1.6, y: 1}
-  fireNumCd: 4
-  loadUpCd: 0.5
+  fireNumCd: 5
+  loadUpCd: 0.05
   node: {fileID: 114958365240871062}

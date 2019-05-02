@@ -55,8 +55,6 @@ public class BulletHandler : MonoBehaviour
                 AddRecordKey(bulletNumKey, GetDictValue(bulletNumKey) + 1, true);
                 float fireQueue = GetDictValue(bulletNumKey) % baseBullet.fireNumCd;
 
-                MathParserRouter.Instance.EditKeyValue("f", fireQueue);
-
                 float angle = MathParserRouter.Instance.CalculateAnswer(initBulletPath.angle_formula);
                 Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
                 if (initBulletPath.angleOnTarget && _target != null)
@@ -75,6 +73,7 @@ public class BulletHandler : MonoBehaviour
                     float duration_percentage = (baseBullet.fireNumCd - fireQueueIndex) / baseBullet.fireNumCd;
 
                     projectile.duration = initBulletPath.duration * duration_percentage;
+
                 }
 
                 RecordTimeTable[baseBullet._id] = Time.time + initBulletPath.frequency;

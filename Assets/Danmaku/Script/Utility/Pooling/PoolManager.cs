@@ -9,6 +9,8 @@ namespace Pooling {
 
         static PoolManager _instance;
 
+        private readonly Vector2 _destroyPos = new Vector2(0,0);
+
         public static PoolManager instance
         {
             get
@@ -34,7 +36,8 @@ namespace Pooling {
                     GameObject newObject = Instantiate(prefab) as GameObject;
                     newObject.name = newObject.name + "-" + i;
                     newObject.transform.SetParent(this.transform);
-                    newObject.SetActive(false);
+                    SetActive(newObject, false);
+                    //newObject.SetActive(false);
                     poolDictionary[poolkey].Enqueue(newObject);
                 }
             }
@@ -46,6 +49,8 @@ namespace Pooling {
             {
                 GameObject objectToReuse = poolDictionary[poolKey].Dequeue();
 
+                SetActive(objectToReuse, true);
+
                 poolDictionary[poolKey].Enqueue(objectToReuse);
                 return objectToReuse;
             }
@@ -53,11 +58,22 @@ namespace Pooling {
             return null;
         }
 
+        private void SetActive(GameObject p_gameobject, bool p_enable) {
+            Renderer renderer = p_gameobject.GetComponent<Renderer>();
+            if (renderer)
+                renderer.enabled = p_enable;
+
+            Collider2D collider = p_gameobject.GetComponent<Collider2D>();
+            if (collider)
+                collider.enabled = p_enable;
+        }
+
         public void Destroy(GameObject p_gameobject)
         {
-            p_gameobject.transform.position = Vector3.zero;
+            p_gameobject.transform.position = _destroyPos;
             p_gameobject.transform.SetParent(this.transform);
-            p_gameobject.SetActive(false);
+            SetActive(p_gameobject, false);
+
         }
     }
 }

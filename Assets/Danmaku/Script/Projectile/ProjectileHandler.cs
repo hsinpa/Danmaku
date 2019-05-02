@@ -7,6 +7,7 @@ public class ProjectileHandler : MonoBehaviour
 {
     [SerializeField]
     List<BaseProjectile> projectileHolder = new List<BaseProjectile>();
+    List<int> projectileDestroyIndexes = new List<int>();
 
     [SerializeField]
     MathParserRouter mathRouter;
@@ -21,8 +22,6 @@ public class ProjectileHandler : MonoBehaviour
 
     public GameObject CreateProjectile(string p_id) {
         GameObject reuseObject = Pooling.PoolManager.instance.ReuseObject(p_id);
-        reuseObject.SetActive(true);
-
         BaseProjectile projectile = reuseObject.GetComponent<BaseProjectile>();
 
         projectileHolder.Add(projectile);
@@ -34,17 +33,16 @@ public class ProjectileHandler : MonoBehaviour
     public void Update()
     {
         mathRouter.Refresh();
+        HandleDestroyIndexes();
+        int pLength = projectileHolder.Count;
 
-        for (int i = 0; i < projectileHolder.Count; i++) {
+        for (int i = 0; i < pLength; i++) {
             if (projectileHolder[i] != null && projectileHolder[i].baseBullet != null) {
                 var bulletInfo = projectileHolder[i].baseBullet;
                 var bulletPath = projectileHolder[i].currentBulletPath;
 
                 var eulerAngles = projectileHolder[i].transform.rotation.eulerAngles;
 
-                //projectiles[i].angle = Mathf.Sin(Time.time) * Time.deltaTime * bulletType.angular_velocity;
-
-                //projectileHolder[i].UpdateAngularVelocity(bulletPath.angular_velocity_formula);
                 float angular_velocity = mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
                 //float angular_velocity = 0;
 
@@ -61,9 +59,6 @@ public class ProjectileHandler : MonoBehaviour
                 //{
                 projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (Time.deltaTime * angular_velocity) ));
                 //}
-
-                //projectiles[i].transform.rotation = Quaternion.Euler(0, 0, (angular_velocity));
-
 
                 projectileHolder[i].transform.position += projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
 
@@ -87,14 +82,23 @@ public class ProjectileHandler : MonoBehaviour
         projectileHolder.Clear();
     }
 
+    private void HandleDestroyIndexes() {
+        int dLength = projectileDestroyIndexes.Count - 1;
+        for (int i = dLength; i >= 0; i--) {
+            projectileHolder.RemoveAt(projectileDestroyIndexes[i]);
+        }
+
+        projectileDestroyIndexes.Clear();
+    }
+
     private void DestroyBullet(int bulletIndex)
     {
-        if (projectileHolder.Count > bulletIndex) {
+        //if (projectileHolder.Count > bulletIndex) {
             BaseProjectile baseProjectile = projectileHolder[bulletIndex];
             baseProjectile.Reset();
-
-            projectileHolder.RemoveAt(bulletIndex);
+            //projectileHolder.RemoveAt(bulletIndex);
+            projectileDestroyIndexes.Add(bulletIndex);
             PoolManager.instance.Destroy(baseProjectile.gameObject);
-        }
+        //}
     }
 }
