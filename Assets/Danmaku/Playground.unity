@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileHolder: []
-  mathRouter: {fileID: 904796847}
 --- !u!1 &240813463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,6 +2345,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: dungeon_enemy_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 900434551495025468, guid: ae594975e15b8424d8f070df4cbdea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 900434551495025471, guid: ae594975e15b8424d8f070df4cbdea50,
         type: 3}

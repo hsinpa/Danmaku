@@ -14,6 +14,7 @@ namespace DanmakuEditor
 
         [Header("Spawn Properties")]
         public string angle_formula;
+
         public bool angleOnTarget;
         public float start_delay;
         public float transition;
@@ -59,9 +60,22 @@ namespace DanmakuEditor
         protected override void Init()
         {
             base.Init();
-
-            //bulletType = GetInputValues<BaseBullet>("bulletType", bulletType);
         }
+
+        public override void OnCreateConnection(NodePort from, NodePort to)
+        {
+            Refresh(to);
+        }
+
+        public override void OnRemoveConnection(NodePort port)
+        {
+            Refresh(port);
+        }
+
+        private void Refresh(NodePort port) {
+
+        }
+
 
     }
 }

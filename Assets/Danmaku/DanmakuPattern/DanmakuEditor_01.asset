@@ -36,7 +36,7 @@ MonoBehaviour:
   m_Name: Bullet Path
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1992, y: -568}
+  position: {x: -2072, y: -568}
   ports:
     keys:
     - node
@@ -55,7 +55,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 270
+  angle_formula: 
   angleOnTarget: 0
   start_delay: 0.5
   transition: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   velocity: 3
-  angular_velocity_formula: 15
+  angular_velocity_formula: 0
   followTarget: 0
   lerpPercent: 0
   frequency: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: Bullet Path
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -2200, y: -648}
+  position: {x: -2552, y: -856}
   ports:
     keys:
     - node
@@ -135,7 +135,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 200 + sin(t)*10
+  angle_formula: 
   angleOnTarget: 0
   start_delay: 1
   transition: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   velocity: 4
-  angular_velocity_formula: 0
+  angular_velocity_formula: 
   followTarget: 0
   lerpPercent: 0
   frequency: 0.3
@@ -182,7 +182,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 340
+  angle_formula: 
   angleOnTarget: 0
   start_delay: 1
   transition: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   velocity: 2
-  angular_velocity_formula: 0
+  angular_velocity_formula: 
   followTarget: 0
   lerpPercent: 0
   frequency: 0.6
@@ -244,9 +244,9 @@ MonoBehaviour:
   - {fileID: 114311109994497660}
   _id: bullet_2_radius
   poolObjectID: bullet_type_01
-  sprite: {fileID: 21300002, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
+  sprite: {fileID: 21300008, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1, y: 1}
-  fireNumCd: 2
+  fireNumCd: 4
   loadUpCd: 1
   node: {fileID: 0}
 --- !u!114 &114311109994497660
@@ -281,7 +281,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 270 + sin(t*2)*15
+  angle_formula: 
   angleOnTarget: 0
   start_delay: 0
   transition: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
   numberOfBullet: 10
   spawnOffset: {x: 0, y: 0, z: 0}
   velocity: 3
-  angular_velocity_formula: 0
+  angular_velocity_formula: 5
   followTarget: 0
   lerpPercent: 0
   frequency: 0.15
@@ -349,7 +349,7 @@ MonoBehaviour:
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300000, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1.6, y: 1}
-  fireNumCd: 5
+  fireNumCd: 4
   loadUpCd: 0.05
   node: {fileID: 114412066513035064}
 --- !u!114 &114426886241097488
@@ -384,7 +384,7 @@ MonoBehaviour:
       _dynamic: 0
   node: {fileID: 0}
   type: 1
-  angle_formula: 270
+  angle_formula: 
   angleOnTarget: 0
   start_delay: 0.5
   transition: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
   numberOfBullet: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   velocity: 1
-  angular_velocity_formula: -15
+  angular_velocity_formula: 
   followTarget: 0
   lerpPercent: 0
   frequency: 0
@@ -510,6 +510,6 @@ MonoBehaviour:
   poolObjectID: bullet_type_01
   sprite: {fileID: 21300000, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
   scale: {x: 1.6, y: 1}
-  fireNumCd: 5
+  fireNumCd: 4
   loadUpCd: 0.5
   node: {fileID: 114958365240871062}

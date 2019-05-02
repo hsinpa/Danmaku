@@ -52,6 +52,11 @@ public class BulletHandler : MonoBehaviour
 
             if (Time.time > RecordTimeTable[baseBullet._id])
             {
+                AddRecordKey(bulletNumKey, GetDictValue(bulletNumKey) + 1, true);
+                float fireQueue = GetDictValue(bulletNumKey) % baseBullet.fireNumCd;
+
+                MathParserRouter.Instance.EditKeyValue("f", fireQueue);
+
                 float angle = MathParserRouter.Instance.CalculateAnswer(initBulletPath.angle_formula);
                 Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
                 if (initBulletPath.angleOnTarget && _target != null)
@@ -61,8 +66,6 @@ public class BulletHandler : MonoBehaviour
                 float startAngle = Utility.MathUtility.VectorToAngle(direction) - (initBulletPath.range / 2);
                 float incrementalAngle = initBulletPath.range / initBulletPath.numberOfBullet;
 
-                AddRecordKey(bulletNumKey, GetDictValue(bulletNumKey) + 1, true);
-                float fireQueue = GetDictValue(bulletNumKey) % baseBullet.fireNumCd;
 
                 for (int b = 0; b < initBulletPath.numberOfBullet; b++)
                 {
@@ -81,11 +84,7 @@ public class BulletHandler : MonoBehaviour
                 {
                     RecordTimeTable[baseBullet._id] = RecordTimeTable[baseBullet._id] + baseBullet.loadUpCd;
                 }
-
             }
-
-
-
         }
     }
 
@@ -100,7 +99,7 @@ public class BulletHandler : MonoBehaviour
         pObject.transform.position = transform.position + baseBullet.path[0].spawnOffset;
 
         SpriteRenderer renderer = pObject.GetComponent<SpriteRenderer>();
-        //renderer.sprite = baseBullet.sprite;
+        renderer.sprite = baseBullet.sprite;
         var projectile = pObject.GetComponent<BaseProjectile>();
         projectile.baseBullet = baseBullet;
         projectile.spawnTime = Time.time;

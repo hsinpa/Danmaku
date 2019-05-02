@@ -2,8 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MathExpParser;
+
 public class MathParserRouter : MonoBehaviour
 {
+
+    Dictionary<string, List<MathExpParser.Token>> formulaCache = new Dictionary<string, List<MathExpParser.Token>>();
+    Dictionary<string, float> answerCache = new Dictionary<string, float>();
+    Dictionary<string, float> _keywordCache = new Dictionary<string, float>();
+    public Dictionary<string, float> keywordCache
+    {
+        get
+        {
+            return _keywordCache;
+        }
+    }
+
+    MathExpParser.MathParser mathParser;
 
     private static MathParserRouter s_Instance;
     public static MathParserRouter Instance
@@ -24,31 +38,27 @@ public class MathParserRouter : MonoBehaviour
             return null;
         }
     }
-
-    Dictionary<string, List<MathExpParser.Token>> formulaCache = new Dictionary<string, List<MathExpParser.Token>>();
-    Dictionary<string, float> answerCache = new Dictionary<string, float>();
-    Dictionary<string, float> keywordCache = new Dictionary<string, float>();
-    MathExpParser.MathParser mathParser;
-
-    private void Start()
+    public void Start()
     {
         mathParser = new MathExpParser.MathParser();
     }
 
-    public float CalculateAnswer(string p_formula) {
-        List<MathExpParser.Token> tokens = new List<Token> (GetCacheToken(p_formula));
+    public float CalculateAnswer(string p_formula)
+    {
+        List<MathExpParser.Token> tokens = new List<Token>(GetCacheToken(p_formula));
         //Debug.Log("formula " + p_formula + ", angular_velocity " + tokens.Count);
 
         if (!answerCache.ContainsKey(p_formula))
         {
-            var answer = mathParser.ParseShuntingYardToken(tokens, keywordCache);
+            var answer = mathParser.ParseShuntingYardToken(tokens, _keywordCache);
             answerCache.Add(p_formula, answer);
         }
 
         return answerCache[p_formula];
     }
 
-    public List<MathExpParser.Token> GetCacheToken(string p_math_expression) {
+    public List<MathExpParser.Token> GetCacheToken(string p_math_expression)
+    {
         if (!formulaCache.ContainsKey(p_math_expression))
         {
             var tokens = mathParser.ParseMathExpression(p_math_expression);
@@ -60,21 +70,30 @@ public class MathParserRouter : MonoBehaviour
         return formulaCache[p_math_expression];
     }
 
-    public Dictionary<string, float> GetUniversalKeyword() {
-        var keywords = new Dictionary<string, float>();
-        keywords.Add("t", Time.time);
-        keywords.Add("d", Time.deltaTime);
+    public Dictionary<string, float> GetUniversalKeyword()
+    {
+        EditKeyValue("t", Time.time);
+        EditKeyValue("d", Time.deltaTime);
 
-        return keywords;
+        return _keywordCache;
+    }
+
+    public void EditKeyValue(string p_key, float p_value)
+    {
+        if (!_keywordCache.ContainsKey(p_key))
+        {
+            _keywordCache.Add(p_key, p_value);
+        }
+        else
+        {
+            _keywordCache[p_key] = p_value;
+        }
     }
 
     public void Refresh()
     {
-        keywordCache = GetUniversalKeyword();
+        _keywordCache = GetUniversalKeyword();
         answerCache.Clear();
-
     }
-
-
 
 }

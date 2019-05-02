@@ -38,13 +38,6 @@ public class BaseProjectile : MonoBehaviour {
 
     public void UpdateAngularVelocity(string p_math_expression) {
 
-        var shuntingYardToken = MathParserRouter.Instance.GetCacheToken(p_math_expression);
-
-        MathExpParser.MathParserThreading.Instance.FastCalculateAsyn(shuntingYardToken, (MathExpParser.MathParserThreading.ParseResult result) =>
-        {
-           angularVelocity = result.answer;
-
-        }, MathParserRouter.Instance.GetUniversalKeyword());
     }
     
 

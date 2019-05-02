@@ -2,11 +2,11 @@ fileFormatVersion: 2
 guid: 63c662b54ac4e9947812031b1052f913
 TextureImporter:
   fileIDToRecycleName:
-    21300000: M484BulletCollection1_0
+    21300000: bullet_1
     21300002: M484BulletCollection1_1
     21300004: missle
     21300006: M484BulletCollection1_2
-    21300008: M484BulletCollection1_3
+    21300008: bubble
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -25,7 +25,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
@@ -111,14 +111,14 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: M484BulletCollection1_0
+      name: bullet_1
       rect:
         serializedVersion: 2
-        x: 275
-        y: 282
-        width: 20
-        height: 10
-      alignment: 0
+        x: 137
+        y: 216
+        width: 11
+        height: 6
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -131,33 +131,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M484BulletCollection1_1
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 193
-        width: 11
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89e976ec8df5a2d4d9e75168bf53801b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: missle
       rect:
         serializedVersion: 2
-        x: 280
-        y: 136
-        width: 13
-        height: 10
+        x: 140
+        y: 143
+        width: 7
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,33 +151,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M484BulletCollection1_2
+      name: bubble
       rect:
         serializedVersion: 2
-        x: 275
-        y: 282
-        width: 20
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2f5a531fa4a702479096277dc232896
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M484BulletCollection1_3
-      rect:
-        serializedVersion: 2
-        x: 173
-        y: 193
-        width: 11
-        height: 11
+        x: 157
+        y: 84
+        width: 9
+        height: 9
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
