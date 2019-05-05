@@ -9,6 +9,10 @@ public class BaseProjectile : MonoBehaviour {
     public float spawnTime;
     public float duration;
     public int pathIndex = 0;
+
+    public LayerMask collideLayer;
+    public Vector2 boundSize;
+
     public DanmakuEditor.BaseBullet baseBullet;
     public DanmakuEditor.BulletPath currentBulletPath {
         get {
@@ -26,6 +30,12 @@ public class BaseProjectile : MonoBehaviour {
 
     [HideInInspector]
     public BaseCharacter fromCharacter;
+
+    public void SetUp(DanmakuEditor.BaseBullet p_baseBullet, float p_spawnTime) {
+        baseBullet = p_baseBullet;
+        spawnTime = p_spawnTime;
+
+    }
 
     public void SetNextPath(float p_timeSpawn) {
         spawnTime = p_timeSpawn;

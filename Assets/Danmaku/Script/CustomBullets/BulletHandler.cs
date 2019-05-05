@@ -38,6 +38,7 @@ public class BulletHandler : MonoBehaviour
 
     public void Fire() {
         if (_currentPattern == null) return;
+        float time = Time.time;
 
         for (int i = 0; i < _currentPattern.bulletType.Length; i++)
         {
@@ -47,10 +48,10 @@ public class BulletHandler : MonoBehaviour
             string fireCDKey = baseBullet._id + "_fireCD";
             string bulletNumKey = baseBullet._id + "_bulletNum";
 
-            AddRecordKey(baseBullet._id, Time.time + initBulletPath.start_delay);
+            AddRecordKey(baseBullet._id, time + initBulletPath.start_delay);
             AddRecordKey(fireCDKey, 0);
 
-            if (Time.time > RecordTimeTable[baseBullet._id])
+            if (time > RecordTimeTable[baseBullet._id])
             {
                 AddRecordKey(bulletNumKey, GetDictValue(bulletNumKey) + 1, true);
                 float fireQueue = GetDictValue(bulletNumKey) % baseBullet.fireNumCd;
@@ -74,9 +75,10 @@ public class BulletHandler : MonoBehaviour
 
                     projectile.duration = initBulletPath.duration * duration_percentage;
 
+                    _projectileHandler.AddProjectile(projectile);
                 }
 
-                RecordTimeTable[baseBullet._id] = Time.time + initBulletPath.frequency;
+                RecordTimeTable[baseBullet._id] = time + initBulletPath.frequency;
 
                 //Debug.Log(GetDictValue(bulletNumKey) + ", " + fireQueue + " , " + baseBullet.fireNumCd);
                 if (fireQueue == 0)
@@ -93,18 +95,23 @@ public class BulletHandler : MonoBehaviour
     }
 
     private BaseProjectile SetProjectile(DanmakuEditor.BaseBullet baseBullet, float angle) {
-        var pObject = _projectileHandler.CreateProjectile(baseBullet.poolObjectID);
+
+        GameObject reuseObject = Pooling.PoolManager.instance.ReuseObject(baseBullet.poolObjectID);
+        BaseProjectile pObject = reuseObject.GetComponent<BaseProjectile>();
+
         pObject.transform.rotation = Quaternion.Euler(0, 0, angle);
         pObject.transform.position = transform.position + baseBullet.path[0].spawnOffset;
 
         SpriteRenderer renderer = pObject.GetComponent<SpriteRenderer>();
         renderer.sprite = baseBullet.sprite;
         var projectile = pObject.GetComponent<BaseProjectile>();
-        projectile.baseBullet = baseBullet;
-        projectile.spawnTime = Time.time;
+        projectile.SetUp(baseBullet, Time.time);
+        //projectile.baseBullet = baseBullet;
+        //projectile.spawnTime = Time.time;
 
-        Vector3 v = renderer.bounds.size;
-        pObject.GetComponent<BoxCollider2D>().size = v;
+        pObject.boundSize = renderer.bounds.size;
+        //Vector3 v = renderer.bounds.size;
+        //pObject.GetComponent<BoxCollider2D>().size = v;
 
         return projectile;
     }

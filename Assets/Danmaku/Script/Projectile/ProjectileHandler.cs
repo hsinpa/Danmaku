@@ -9,6 +9,8 @@ public class ProjectileHandler : MonoBehaviour
     List<BaseProjectile> projectileHolder = new List<BaseProjectile>();
     List<int> projectileDestroyIndexes = new List<int>();
 
+    RaycastHit2D[] raycastCache = new RaycastHit2D[256];
+
     [SerializeField]
     MathParserRouter mathRouter;
 
@@ -20,13 +22,8 @@ public class ProjectileHandler : MonoBehaviour
         p_projectile.transform.SetParent(this.transform);
     }
 
-    public GameObject CreateProjectile(string p_id) {
-        GameObject reuseObject = Pooling.PoolManager.instance.ReuseObject(p_id);
-        BaseProjectile projectile = reuseObject.GetComponent<BaseProjectile>();
-
+    public void AddProjectile(BaseProjectile projectile) {
         projectileHolder.Add(projectile);
-
-        return reuseObject;
     }
 
 
@@ -35,13 +32,20 @@ public class ProjectileHandler : MonoBehaviour
         mathRouter.Refresh();
         HandleDestroyIndexes();
         int pLength = projectileHolder.Count;
+        float time = Time.time;
+        float deltaTime = Time.deltaTime;
 
         for (int i = 0; i < pLength; i++) {
             if (projectileHolder[i] != null && projectileHolder[i].baseBullet != null) {
                 var bulletInfo = projectileHolder[i].baseBullet;
                 var bulletPath = projectileHolder[i].currentBulletPath;
 
+                var oldPosition = projectileHolder[i].transform.position;
+
+
                 var eulerAngles = projectileHolder[i].transform.rotation.eulerAngles;
+
+
 
                 float angular_velocity = mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
                 //float angular_velocity = 0;
@@ -57,19 +61,25 @@ public class ProjectileHandler : MonoBehaviour
                 //}
                 //else
                 //{
-                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (Time.deltaTime * angular_velocity) ));
+                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (deltaTime * angular_velocity) ));
                 //}
 
-                projectileHolder[i].transform.position += projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
 
-                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < Time.time)
+                var newPosition = oldPosition + projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
+                var distance = newPosition - oldPosition;
+                projectileHolder[i].transform.position = newPosition;
+
+
+                CheckCollision(oldPosition, projectileHolder[i].boundSize, distance, distance.magnitude, projectileHolder[i].collideLayer);
+
+                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < time)
                 {
                     if (projectileHolder[i].IsLastPath)
                     {
                         DestroyBullet(i);
                     }
                     else {
-                        projectileHolder[i].SetNextPath(Time.time);
+                        projectileHolder[i].SetNextPath(time);
                     }
                 }
 
@@ -77,6 +87,18 @@ public class ProjectileHandler : MonoBehaviour
         }
     }
 
+    private void CheckCollision(Vector2 p_oldPosition, Vector2 p_bounds, Vector2 p_direction, float p_distance, LayerMask p_laymask)
+    {
+        float angle = Utility.MathUtility.VectorToAngle(p_direction);
+        int hits = Physics2D.BoxCastNonAlloc(p_oldPosition, p_bounds, angle, p_direction, raycastCache, p_distance, p_laymask);
+
+        if (hits <= 0) return;
+        for (var j = 0; j < hits; j++)
+        {
+            var collider = raycastCache[j].collider;
+        }
+    }
+  
     public void Reset()    
     {
         projectileHolder.Clear();
