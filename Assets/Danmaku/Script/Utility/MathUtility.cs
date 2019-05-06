@@ -10,5 +10,24 @@ namespace Utility {
 
             return angle;
         }
+
+        public static Vector3 AngleToVector3(float p_angle) {
+
+            return new Vector3( Mathf.Sin(p_angle * Mathf.Deg2Rad), Mathf.Cos(p_angle * Mathf.Deg2Rad), 0);
+        }
+
+        public static float NormalizeAngle(float angle)
+        {
+            float result = angle / 360;
+
+            result = result - Mathf.FloorToInt(result);
+            result = result * 360;
+            if (result < 0)
+            {
+                result = 360 - result;
+            }
+            return result;
+        }
+
     }
 }

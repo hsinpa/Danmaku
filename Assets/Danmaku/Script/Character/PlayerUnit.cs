@@ -15,13 +15,16 @@ public class PlayerUnit : BaseCharacter
 
     private void Update()
     {
+        Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 worldPoint = new Vector3((point.x), (point.y), 0);
+
+        Vector3 direction = (worldPoint - transform.position).normalized;
+        float angle =  Utility.MathUtility.NormalizeAngle(Utility.MathUtility.VectorToAngle(direction)) - 90;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
         if (Input.GetMouseButton(0))
         {
-            Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 worldPoint = new Vector3Int(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y), 0);
-
-            Vector3 direction = (worldPoint - transform.position).normalized;
-
             if (baseBullet != null)
                 baseBullet.Fire(direction);
         }

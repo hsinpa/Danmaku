@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
     }
 
     private void PreparePoolingObject(STPTheme p_themeObject) {
-        if (p_themeObject.stpObjectHolder != null) {
+        if (p_themeObject != null && p_themeObject.stpObjectHolder != null) {
             for (int i = 0; i < p_themeObject.stpObjectHolder.Count; i++) {
                 var stpObject = p_themeObject.stpObjectHolder[i];
                 PoolManager.instance.CreatePool(stpObject.prefab, stpObject._id, stpObject.poolingNum);
