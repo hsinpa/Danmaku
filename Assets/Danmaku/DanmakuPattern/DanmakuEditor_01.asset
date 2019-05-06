@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: Bullet Path
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -2216, y: -56}
+  position: {x: -2072, y: 8}
   ports:
     keys:
     - node
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Name: Bullet Path
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1976, y: 40}
+  position: {x: -1784, y: 184}
   ports:
     keys:
     - node

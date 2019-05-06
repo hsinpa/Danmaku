@@ -5,6 +5,7 @@ using XNode;
 
 namespace DanmakuEditor
 {
+    [NodeWidth(250)]
     public class BulletPath : XNode.Node
     {
 
