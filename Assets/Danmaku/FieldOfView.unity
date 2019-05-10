@@ -367,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 76e930dd58b610a40b2fd3f18986c908, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2747,4 +2747,6 @@ MonoBehaviour:
     m_Bits: 512
   visibleTargets: []
   meshResolution: 0.1
+  edgeResolveIteration: 4
+  edgeDstThreshold: 0.5
   viewMeshFilter: {fileID: 418711871}

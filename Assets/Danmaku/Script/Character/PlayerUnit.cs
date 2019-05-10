@@ -19,9 +19,9 @@ public class PlayerUnit : BaseCharacter
         Vector3 worldPoint = new Vector3((point.x), (point.y), 0);
 
         Vector3 direction = (worldPoint - transform.position).normalized;
-        float angle =  Utility.MathUtility.NormalizeAngle(Utility.MathUtility.VectorToAngle(direction)) - 90;
+        //float angle =  Utility.MathUtility.NormalizeAngle(Utility.MathUtility.VectorToAngle(direction)) - 90;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        //transform.rotation = Quaternion.Euler(0, 0, angle);
 
         if (Input.GetMouseButton(0))
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -335,6 +335,7 @@ MonoBehaviour:
         type: 3}
       spawn_number: 1
     remaining_spawn_point: 1
+  themeObject: {fileID: 0}
 --- !u!1 &557127290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,8 +2508,8 @@ GameObject:
   - component: {fileID: 2000685119}
   - component: {fileID: 2000685122}
   - component: {fileID: 2000685123}
-  - component: {fileID: 2000685121}
   - component: {fileID: 2000685124}
+  - component: {fileID: 2000685121}
   m_Layer: 8
   m_Name: dungeon_player
   m_TagString: Untagged
@@ -2591,7 +2592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
-  projectileHolder: {fileID: 0}
+  projectileHolder: {fileID: 237078561}
   isKillable: 1
   team: 0
 --- !u!50 &2000685122
@@ -2650,16 +2651,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2000685118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1fd17642b602c4c908db6de576068e, type: 3}
+  m_Script: {fileID: 11500000, guid: f56d855ff0335f341a42414481613e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1411318847061768, guid: b26431cab660f584084ef93cc8435786, type: 3}
-  velocity: 5
-  frequency: 0.3
+  prefab: {fileID: 30115282637725276, guid: 7df33ebb3abde3e4e93f1ea6af7f3afd, type: 3}
+  velocity: 0
+  frequency: 0.1
   projectileHolder: {fileID: 0}
   testMode: 0
-  test_angle: 0
-  range: 0
-  radius: 0
-  angular_velocity: 0
-  numberOfBullet: 1
+  range: 3
+  beamWidth: 0.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256

@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
         PreparePoolingObject(themeObject);
-        //StartCoroutine( Spawn(1, PrepareWave() ) );
+        StartCoroutine( Spawn(1, PrepareWave() ) );
     }
 
     private void PreparePoolingObject(STPTheme p_themeObject) {

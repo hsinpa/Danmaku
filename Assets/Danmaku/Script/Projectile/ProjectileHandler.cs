@@ -9,7 +9,7 @@ public class ProjectileHandler : MonoBehaviour
     List<BaseProjectile> projectileHolder = new List<BaseProjectile>();
     List<int> projectileDestroyIndexes = new List<int>();
 
-    RaycastHit2D[] raycastCache = new RaycastHit2D[256];
+    RaycastHit2D[] raycastCache = new RaycastHit2D[32];
 
     [SerializeField]
     MathParserRouter mathRouter;

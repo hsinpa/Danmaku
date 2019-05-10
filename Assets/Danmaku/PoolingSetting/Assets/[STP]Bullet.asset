@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: bullet_type_01
   _tag: Bullet
-  poolingNum: 300
+  poolingNum: 200
   prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
