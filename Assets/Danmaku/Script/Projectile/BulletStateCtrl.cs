@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pooling;
 
-public class ProjectileHandler : MonoBehaviour
+public class BulletStateCtrl : MonoBehaviour
 {
     [SerializeField]
-    List<BaseProjectile> projectileHolder = new List<BaseProjectile>();
+    List<BulletObject> projectileHolder = new List<BulletObject>();
     List<int> projectileDestroyIndexes = new List<int>();
 
     RaycastHit2D[] raycastCache = new RaycastHit2D[32];
@@ -18,14 +18,13 @@ public class ProjectileHandler : MonoBehaviour
 
     }
 
-    public void Enqueue(BaseProjectile p_projectile) {
+    public void Enqueue(BulletObject p_projectile) {
         p_projectile.transform.SetParent(this.transform);
     }
 
-    public void AddProjectile(BaseProjectile projectile) {
+    public void AddProjectile(BulletObject projectile) {
         projectileHolder.Add(projectile);
     }
-
 
     public void Update()
     {
@@ -45,8 +44,6 @@ public class ProjectileHandler : MonoBehaviour
 
                 var eulerAngles = projectileHolder[i].transform.rotation.eulerAngles;
 
-
-
                 float angular_velocity = mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
                 //float angular_velocity = 0;
 
@@ -64,11 +61,9 @@ public class ProjectileHandler : MonoBehaviour
                 projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (deltaTime * angular_velocity) ));
                 //}
 
-
                 var newPosition = oldPosition + projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
                 var distance = newPosition - oldPosition;
                 projectileHolder[i].transform.position = newPosition;
-
 
                 CheckCollision(oldPosition, projectileHolder[i].boundSize, distance, distance.magnitude, projectileHolder[i].collideLayer);
 
@@ -116,7 +111,7 @@ public class ProjectileHandler : MonoBehaviour
     private void DestroyBullet(int bulletIndex)
     {
         //if (projectileHolder.Count > bulletIndex) {
-            BaseProjectile baseProjectile = projectileHolder[bulletIndex];
+            BulletObject baseProjectile = projectileHolder[bulletIndex];
             baseProjectile.Reset();
             //projectileHolder.RemoveAt(bulletIndex);
             projectileDestroyIndexes.Add(bulletIndex);

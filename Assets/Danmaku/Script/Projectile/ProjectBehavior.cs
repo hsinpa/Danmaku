@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ProjectBehavior : MonoBehaviour
 {
-    BaseProjectile baseProjectile;
+    BulletObject baseProjectile;
 
-    public System.Action<BaseProjectile, Collider2D> OnProjectileDestroy;
+    public System.Action<BulletObject, Collider2D> OnProjectileDestroy;
 
     private void Start()
     {
-        baseProjectile = this.GetComponent<BaseProjectile>();
+        baseProjectile = this.GetComponent<BulletObject>();
     }
 
     private void OnCollideEvent(Collider2D collision)

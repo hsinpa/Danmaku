@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 240813465}
   - component: {fileID: 240813464}
   - component: {fileID: 240813466}
+  - component: {fileID: 240813467}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -397,6 +398,18 @@ MonoBehaviour:
   projectileHolder: {fileID: 237078561}
   waves: []
   themeObject: {fileID: 11400000, guid: 70f7f8a75cba3b546bac0ca6a98a0c76, type: 2}
+--- !u!114 &240813467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240813463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7560a70d3a9fdb841b20bbc0cab3b0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &557127290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,11 +2425,16 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2000685120}
+    - target: {fileID: 900434551495025442, guid: ae594975e15b8424d8f070df4cbdea50,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8954945155381574309, guid: ae594975e15b8424d8f070df4cbdea50,
         type: 3}
       propertyPath: _bulletGraph
       value: 
-      objectReference: {fileID: 11400000, guid: 372739cbc83017242b9fb320a52ed841,
+      objectReference: {fileID: 11400000, guid: b0a61fb89f7cbf642877279704c005c2,
         type: 2}
     - target: {fileID: 8954945155381574309, guid: ae594975e15b8424d8f070df4cbdea50,
         type: 3}
@@ -2428,12 +2446,8 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 2000685120}
-    - target: {fileID: 900434551495025442, guid: ae594975e15b8424d8f070df4cbdea50,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 900434551495025441, guid: ae594975e15b8424d8f070df4cbdea50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae594975e15b8424d8f070df4cbdea50, type: 3}
 --- !u!1 &957643136
 GameObject:
@@ -2782,6 +2796,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1247590764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 900434551495025468, guid: ae594975e15b8424d8f070df4cbdea50,
+    type: 3}
+  m_PrefabInstance: {fileID: 920136670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1247590767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247590764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e71a1192ff13a0429a156f6fddc558b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  projectileHolder: {fileID: 0}
+  isKillable: 1
+  team: 0
 --- !u!1 &1325928657
 GameObject:
   m_ObjectHideFlags: 0

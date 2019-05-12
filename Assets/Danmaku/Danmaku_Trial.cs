@@ -14,12 +14,12 @@ public class Danmaku_Trial : MonoBehaviour {
 
     private float recordTime;
 
-    private List<BaseProjectile> projectiles;
+    private List<BulletObject> projectiles;
 
 
 	// Use this for initialization
 	void Start () {
-        projectiles = new List<BaseProjectile>();
+        projectiles = new List<BulletObject>();
     }
 
     // Update is called once per frame
@@ -46,9 +46,9 @@ public class Danmaku_Trial : MonoBehaviour {
         Debug.Log(projectiles[0].angularVelocity);
     }
 
-    private BaseProjectile CreateProjectile(float p_angle) {
+    private BulletObject CreateProjectile(float p_angle) {
         GameObject projectile = Instantiate(prefab, this.transform);
-        BaseProjectile baseProjectile = projectile.GetComponent<BaseProjectile>();
+        BulletObject baseProjectile = projectile.GetComponent<BulletObject>();
         projectile.transform.rotation = Quaternion.Euler(0, 0, p_angle);
         projectile.transform.position = transform.position;
 

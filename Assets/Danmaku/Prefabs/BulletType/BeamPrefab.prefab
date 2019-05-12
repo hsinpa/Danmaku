@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1480790126522731227}
   - component: {fileID: 360337525057765974}
+  - component: {fileID: 477315499508905431}
   m_Layer: 8
   m_Name: BeamPrefab
   m_TagString: Untagged
@@ -65,9 +66,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1637346519
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -124,5 +125,27 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &477315499508905431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30115282637725276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6283f035339ebf34baa81517600e08c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angularVelocity: 0
+  spawnTime: 0
+  duration: 0
+  collideLayer:
+    serializedVersion: 2
+    m_Bits: 768
+  boundSize: {x: 0, y: 0}
+  fromCharacter: {fileID: 0}
+  baseBullet: {fileID: 0}
+  lineRenderer: {fileID: 0}

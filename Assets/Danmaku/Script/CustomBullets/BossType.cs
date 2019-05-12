@@ -11,7 +11,7 @@ public class BossType : MonoBehaviour {
     protected float recordTime;
     protected float patternStartTime = 0;
 
-    protected List<BaseProjectile> projectiles = new List<BaseProjectile>();
+    protected List<BulletObject> projectiles = new List<BulletObject>();
     protected BaseCharacter baseCharacter;
 
     [SerializeField]
@@ -156,10 +156,10 @@ public class BossType : MonoBehaviour {
     }
 
 
-    protected BaseProjectile CreateProjectile(float p_angle)
+    protected BulletObject CreateProjectile(float p_angle)
     {
         GameObject projectile = Instantiate(bulletType.prefab, (projectileHolder != null) ? projectileHolder : this.transform);
-        BaseProjectile baseProjectile = projectile.GetComponent<BaseProjectile>();
+        BulletObject baseProjectile = projectile.GetComponent<BulletObject>();
 
         projectile.transform.rotation = Quaternion.Euler(0, 0, p_angle);
         projectile.transform.position = transform.position;

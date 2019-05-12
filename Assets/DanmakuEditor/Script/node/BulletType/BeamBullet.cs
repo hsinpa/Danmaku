@@ -9,6 +9,17 @@ namespace DanmakuEditor
     {
         [Output(connectionType = ConnectionType.Multiple)] public BeamBullet node;
 
+        public float beamLength;
+        public float beamWidth;
+
+        public float damage;
+        public float damageFrequency;
+        public LayerMask collideMask;
+
+        [Header("Spawn Properties")]
+        public float angle = 0;
+        public bool angleOnTarget;
+
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "node")

@@ -10,9 +10,9 @@ namespace DanmakuEditor
         [Input(connectionType = ConnectionType.Multiple)] public BaseBullet[] bulletType;
         [Output(connectionType = ConnectionType.Multiple)] public BulletPattern patterns;
 
-        public string _id;
+        public string _id = "default_id_01";
 
-        public string name;
+        public string name = "JustAnotherBullet";
         public float duration;
         public string next_pattern_id;
 

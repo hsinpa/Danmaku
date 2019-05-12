@@ -40,7 +40,7 @@ public class BaseCharacter : MonoBehaviour
         }
     }
 
-    public virtual void OnHit(BaseProjectile p_baseProjectile) {
+    public virtual void OnHit(BulletObject p_baseProjectile) {
         if (team == Team.Team2 && OnDestroy != null && isKillable)
             OnDestroy(this);
     }

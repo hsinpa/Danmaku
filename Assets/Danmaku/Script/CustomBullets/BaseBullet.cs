@@ -12,7 +12,7 @@ public abstract class BaseBullet : MonoBehaviour {
 
     protected float recordTime;
 
-    protected List<BaseProjectile> projectiles = new List<BaseProjectile>();
+    protected List<BulletObject> projectiles = new List<BulletObject>();
     protected BaseCharacter baseCharacter;
 
     [SerializeField]
@@ -32,7 +32,7 @@ public abstract class BaseBullet : MonoBehaviour {
         projectiles.RemoveAt(bulletIndex);
     }
 
-    protected virtual void OnBulletDestroy(BaseProjectile p_projectile, Collider2D p_collider2D)
+    protected virtual void OnBulletDestroy(BulletObject p_projectile, Collider2D p_collider2D)
     {
         int findIndex = projectiles.IndexOf(p_projectile);
 
@@ -40,10 +40,10 @@ public abstract class BaseBullet : MonoBehaviour {
             DestroyBullet(findIndex);
     }
 
-    protected BaseProjectile CreateProjectile(float p_angle)
+    protected BulletObject CreateProjectile(float p_angle)
     {
         GameObject projectile = Instantiate(prefab, (projectileHolder != null)  ? projectileHolder : this.transform);
-        BaseProjectile baseProjectile = projectile.GetComponent<BaseProjectile>();
+        BulletObject baseProjectile = projectile.GetComponent<BulletObject>();
         projectile.transform.rotation = Quaternion.Euler(0, 0, p_angle);
         projectile.transform.position = transform.position;
 
