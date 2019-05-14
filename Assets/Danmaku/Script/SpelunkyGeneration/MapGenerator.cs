@@ -21,9 +21,9 @@ namespace PCG.SpelunkyMap {
 
         private void Start()
         {
-            var completedRoom = Generate(size.x, size.y);
+            //var completedRoom = Generate(size.x, size.y);
 
-            RenderRoom(completedRoom);
+            //RenderRoom(completedRoom);
         }
 
         private void Update()
@@ -35,29 +35,29 @@ namespace PCG.SpelunkyMap {
             }
         }
 
-        public RoomLayout Generate(int width, int height) {
-            RoomLayout roomLayout = new RoomLayout(width, height);
+        public DungeonLayout Generate(int width, int height) {
+            DungeonLayout dungeonLayout = new DungeonLayout(width, height);
 
-            roomLayout = GenerateMainPath(roomLayout);
+            dungeonLayout = GenerateMainPath(dungeonLayout);
 
-            return roomLayout;
+            return dungeonLayout;
         }
 
-        private RoomLayout GenerateMainPath(RoomLayout roomLayout) {
+        private DungeonLayout GenerateMainPath(DungeonLayout dungeonLayout) {
             //Start from First Row
-            int randX = (Random.Range(0, roomLayout.width));
+            int randX = (Random.Range(0, dungeonLayout.width));
 
-            roomLayout.layout[randX, roomLayout.height - 1] = new RoomInfo(randX, roomLayout.height - 1);
-            roomLayout.layout[randX, roomLayout.height - 1].roomState = RoomInfo.RoomState.StartPoint;
+            dungeonLayout.layout[randX, dungeonLayout.height - 1] = new RoomInfo(randX, dungeonLayout.height - 1);
+            dungeonLayout.layout[randX, dungeonLayout.height - 1].roomState = RoomInfo.RoomState.StartPoint;
 
-            RoomInfo lastRoom = roomLayout.layout[randX, roomLayout.height - 1];
+            RoomInfo lastRoom = dungeonLayout.layout[randX, dungeonLayout.height - 1];
 
             while (true) {
 
-                MoveDir nextMove = FindNextRoom(roomLayout, lastRoom);
+                MoveDir nextMove = FindNextRoom(dungeonLayout, lastRoom);
 
                 if (nextMove == MoveDir.End) {
-                    roomLayout.layout[lastRoom.x, lastRoom.y].roomState = RoomInfo.RoomState.EndPoint;
+                    dungeonLayout.layout[lastRoom.x, lastRoom.y].roomState = RoomInfo.RoomState.EndPoint;
                     break;
                 }
 
@@ -72,25 +72,25 @@ namespace PCG.SpelunkyMap {
                     dirX += ((nextMove == MoveDir.Left) ? -1 : 1);
                 }
 
-                roomLayout.layout[dirX, dirY] = new RoomInfo(dirX, dirY);
-                roomLayout.layout[dirX, dirY].roomState = RoomInfo.RoomState.MainPath;
-                roomLayout.layout[dirX, dirY].roomStyle = RoomStyle.LeftRightOnly;
+                dungeonLayout.layout[dirX, dirY] = new RoomInfo(dirX, dirY);
+                dungeonLayout.layout[dirX, dirY].roomState = RoomInfo.RoomState.MainPath;
+                dungeonLayout.layout[dirX, dirY].roomStyle = RoomStyle.LeftRightOnly;
 
                 if (nextMove == MoveDir.Down)
-                    roomLayout.layout[dirX, dirY].roomStyle = RoomStyle.Bottom;
+                    dungeonLayout.layout[dirX, dirY].roomStyle = RoomStyle.Bottom;
 
                 if (lastRoom.roomStyle == RoomStyle.Bottom)
                 {
                     RoomStyle randamType = (RoomStyle)Random.Range(2, 4);
 
-                    roomLayout.layout[dirX, dirY].roomStyle = randamType;
+                    dungeonLayout.layout[dirX, dirY].roomStyle = randamType;
                 }
 
 
-                lastRoom = roomLayout.layout[dirX, dirY];
+                lastRoom = dungeonLayout.layout[dirX, dirY];
             }
 
-            return roomLayout;
+            return dungeonLayout;
         }
 
         private RoomInfo CreateRoom(int x, int y, RoomInfo.RoomState roomState, RoomStyle roomType) {
@@ -112,7 +112,7 @@ namespace PCG.SpelunkyMap {
             }
         }
 
-        private MoveDir FindNextRoom(RoomLayout roomLayout, RoomInfo previousRoom) {
+        private MoveDir FindNextRoom(DungeonLayout roomLayout, RoomInfo previousRoom) {
             //1,2 = Left, 3,4 = Right, 5 = Down
             int diceValue = Random.Range(1, 6);
 
@@ -154,7 +154,7 @@ namespace PCG.SpelunkyMap {
             return CheckDownValidity(previousRoom);
         }
 
-        private bool IsLeftRightAvailable(RoomLayout roomLayout, RoomInfo previousRoom, int axis) {
+        private bool IsLeftRightAvailable(DungeonLayout roomLayout, RoomInfo previousRoom, int axis) {
 
             bool outOfBoundary = (previousRoom.x + axis >= roomLayout.width || previousRoom.x + axis < 0);
 
@@ -177,26 +177,26 @@ namespace PCG.SpelunkyMap {
             }
         }
 
-        private void RenderRoom(RoomLayout roomLayout)
+        private void RenderRoom(DungeonLayout dungeonLayout)
         {
             string renderString = "";
-            for (int y = roomLayout.height - 1; y >= 0; y--) {
+            for (int y = dungeonLayout.height - 1; y >= 0; y--) {
 
-                for (int x = 0; x < roomLayout.width; x++)
+                for (int x = 0; x < dungeonLayout.width; x++)
                 {
-                    Debug.Log("x:" + x +", y:"+y+", "+roomLayout.layout[x, y].roomState.ToString("g"));
+                    Debug.Log("x:" + x +", y:"+y+", "+dungeonLayout.layout[x, y].roomState.ToString("g"));
 
-                    if (x == roomLayout.width - 1)
+                    if (x == dungeonLayout.width - 1)
                         renderString += "\n";
                 }
             }
         }
 
-        public struct RoomLayout {
+        public struct DungeonLayout {
             public int width, height;
             public RoomInfo[,] layout;
 
-            public RoomLayout(int width, int height) {
+            public DungeonLayout(int width, int height) {
                 this.width = width;
                 this.height = height;
                 this.layout = new RoomInfo[width, height];

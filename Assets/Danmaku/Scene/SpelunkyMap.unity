@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 775817034}
   - component: {fileID: 775817033}
   - component: {fileID: 775817036}
+  - component: {fileID: 775817037}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,4 +208,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d9bba1fe50e304d846abdd79211f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 3, y: 3}
+  size: {x: 4, y: 4}
+--- !u!114 &775817037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775817032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423995d4b5615c1418e5d9bcaf56ad15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomRadius: {x: 10, y: 10}
+  BrickPrefab: {fileID: 8433389207586992628, guid: c53225b06363ab644a2e78a688878cda,
+    type: 3}
+  EmptyPrefab: {fileID: 0}
