@@ -19,11 +19,15 @@ namespace PCG.SpelunkyMap {
             Left, Right, Down, End
         }
 
+        TileGenerator tileGenerator;
+
         private void Start()
         {
-            //var completedRoom = Generate(size.x, size.y);
+            tileGenerator = this.GetComponent<TileGenerator>();
+            var dungeonLayout = Generate(size.x, size.y);
 
-            //RenderRoom(completedRoom);
+            //tileGenerator.SetUp(dungeonLayout);
+            RenderRoom(dungeonLayout);
         }
 
         private void Update()
@@ -77,15 +81,11 @@ namespace PCG.SpelunkyMap {
                 dungeonLayout.layout[dirX, dirY].roomStyle = RoomStyle.LeftRightOnly;
 
                 if (nextMove == MoveDir.Down)
-                    dungeonLayout.layout[dirX, dirY].roomStyle = RoomStyle.Bottom;
-
-                if (lastRoom.roomStyle == RoomStyle.Bottom)
                 {
                     RoomStyle randamType = (RoomStyle)Random.Range(2, 4);
-
                     dungeonLayout.layout[dirX, dirY].roomStyle = randamType;
+                    dungeonLayout.layout[lastRoom.x, lastRoom.y].roomStyle = RoomStyle.Bottom;
                 }
-
 
                 lastRoom = dungeonLayout.layout[dirX, dirY];
             }
@@ -121,7 +121,7 @@ namespace PCG.SpelunkyMap {
             if (diceValue == 1 || diceValue == 2)
             {
                 if (!IsLeftRightAvailable(roomLayout, previousRoom, -1) &&
-                    IsLeftRightAvailable(roomLayout, previousRoom, 1) )
+                    IsLeftRightAvailable(roomLayout, previousRoom, 1))
                 {
                     return MoveDir.Right;
                 }
@@ -184,7 +184,7 @@ namespace PCG.SpelunkyMap {
 
                 for (int x = 0; x < dungeonLayout.width; x++)
                 {
-                    Debug.Log("x:" + x +", y:"+y+", "+dungeonLayout.layout[x, y].roomState.ToString("g"));
+                    Debug.Log("x:" + x +", y:"+y+", " + dungeonLayout.layout[x, y].roomState.ToString("g") +", " + dungeonLayout.layout[x, y].roomStyle.ToString("g"));
 
                     if (x == dungeonLayout.width - 1)
                         renderString += "\n";

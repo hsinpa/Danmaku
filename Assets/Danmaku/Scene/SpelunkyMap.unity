@@ -224,4 +224,5 @@ MonoBehaviour:
   roomRadius: {x: 10, y: 10}
   BrickPrefab: {fileID: 8433389207586992628, guid: c53225b06363ab644a2e78a688878cda,
     type: 3}
-  EmptyPrefab: {fileID: 0}
+  EmptyPrefab: {fileID: 8433389207586992628, guid: 0fa7a38f155d8084f8c3ba1bdae57ea1,
+    type: 3}
