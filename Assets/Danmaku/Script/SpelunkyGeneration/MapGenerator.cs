@@ -26,7 +26,7 @@ namespace PCG.SpelunkyMap {
             tileGenerator = this.GetComponent<TileGenerator>();
             var dungeonLayout = Generate(size.x, size.y);
 
-            //tileGenerator.SetUp(dungeonLayout);
+            tileGenerator.SetUp(dungeonLayout);
             RenderRoom(dungeonLayout);
         }
 
@@ -59,6 +59,8 @@ namespace PCG.SpelunkyMap {
             while (true) {
 
                 MoveDir nextMove = FindNextRoom(dungeonLayout, lastRoom);
+
+                dungeonLayout.layout[lastRoom.x, lastRoom.y].previousIndex = new Vector2Int(lastRoom.x, lastRoom.y);
 
                 if (nextMove == MoveDir.End) {
                     dungeonLayout.layout[lastRoom.x, lastRoom.y].roomState = RoomInfo.RoomState.EndPoint;
@@ -216,6 +218,9 @@ namespace PCG.SpelunkyMap {
             public RoomStyle roomStyle;
             public RoomState roomState;
 
+            public Vector2Int previousIndex;
+            
+
             public enum RoomState {
                 Other,
                 StartPoint,
@@ -228,6 +233,8 @@ namespace PCG.SpelunkyMap {
                 this.y = y;
                 roomStyle = RoomStyle.FreeStyle;
                 roomState = RoomState.Other;
+
+                previousIndex = Vector2Int.left;
             }
 
 

@@ -79,6 +79,7 @@ namespace PCG.SpelunkyMap
         private void GenerateLeftRightRoom(MapGenerator.RoomInfo roomInfo) {
             var roomDecoration = new RoomDecoration(roomRadius.x, roomRadius.y, new Vector2Int(roomInfo.x, roomInfo.y));
 
+
             roomDecoration = CreateWall(new Vector2Int(0, roomDecoration.height - 1), roomDecoration, Vector2Int.right, roomDecoration.width, false);
             roomDecoration = CreateWall(new Vector2Int(0, 0), roomDecoration, Vector2Int.right, roomDecoration.width, false);
             roomDecoration = CreateWall(new Vector2Int(0, roomDecoration.height - 1), roomDecoration, Vector2Int.down, roomDecoration.height, true);
@@ -102,6 +103,12 @@ namespace PCG.SpelunkyMap
                     roomDecoration.decorationCode[newIndex.x, newIndex.y] = "1";
                 }
             }
+
+            if (door) {
+                DoorLayout doorLayout = new DoorLayout(doorSize, doorStartIndex, axis);
+                roomDecoration.doorList.Add(doorLayout);
+            }
+                 
             return roomDecoration;
         }
 
