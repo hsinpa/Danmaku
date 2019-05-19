@@ -18,7 +18,7 @@ namespace Danmaku.BulletLauncher
             _self = self;
         }
 
-        public void Fire(DanmakuEditor.BaseBullet p_baseBullet, Transform target)
+        public void Fire(DanmakuEditor.BaseBullet p_baseBullet, Vector3 p_direction)
         {
             DanmakuEditor.NormalBullet baseBullet = (DanmakuEditor.NormalBullet) p_baseBullet;
             DanmakuEditor.BulletPath initBulletPath = baseBullet.path[0];
@@ -36,13 +36,13 @@ namespace Danmaku.BulletLauncher
 
                 float angle = MathParserRouter.Instance.CalculateAnswer(initBulletPath.angle_formula);
                 Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
-                if (initBulletPath.angleOnTarget && target != null)
-                    direction = (target.position - _self.transform.position).normalized;
+
+                if (initBulletPath.angleOnTarget)
+                    direction = p_direction;
 
                 //Calculate angle range, if we want to fire multiple bullet at once
                 float startAngle = Utility.MathUtility.VectorToAngle(direction) - (initBulletPath.range / 2);
                 float incrementalAngle = initBulletPath.range / initBulletPath.numberOfBullet;
-
 
                 for (int b = 0; b < initBulletPath.numberOfBullet; b++)
                 {

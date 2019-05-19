@@ -9,7 +9,7 @@ public class BulletStateCtrl : MonoBehaviour
     List<BulletObject> projectileHolder = new List<BulletObject>();
     List<int> projectileDestroyIndexes = new List<int>();
 
-    RaycastHit2D[] raycastCache = new RaycastHit2D[32];
+    RaycastHit2D[] raycastCache = new RaycastHit2D[16];
 
     [SerializeField]
     MathParserRouter mathRouter;
@@ -31,8 +31,6 @@ public class BulletStateCtrl : MonoBehaviour
         mathRouter.Refresh();
         HandleDestroyIndexes();
         int pLength = projectileHolder.Count;
-        float time = Time.time;
-        float deltaTime = Time.deltaTime;
 
         for (int i = 0; i < pLength; i++) {
             if (projectileHolder[i] != null && projectileHolder[i].baseBullet != null) {
@@ -44,7 +42,8 @@ public class BulletStateCtrl : MonoBehaviour
 
                 var eulerAngles = projectileHolder[i].transform.rotation.eulerAngles;
 
-                float angular_velocity = mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
+                float angular_velocity = 0;
+                //mathRouter.CalculateAnswer(bulletPath.angular_velocity_formula);
                 //float angular_velocity = 0;
 
                 //if (bulletInfo.followTarget)
@@ -58,31 +57,30 @@ public class BulletStateCtrl : MonoBehaviour
                 //}
                 //else
                 //{
-                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (deltaTime * angular_velocity) ));
+                projectileHolder[i].transform.rotation = Quaternion.Euler(0, 0, (eulerAngles.z + (PropertiesUtility.deltaTime * angular_velocity) ));
                 //}
 
                 var newPosition = oldPosition + projectileHolder[i].transform.right * bulletPath.velocity * Time.deltaTime;
                 var distance = newPosition - oldPosition;
                 projectileHolder[i].transform.position = newPosition;
 
-                CheckCollision(oldPosition, projectileHolder[i].boundSize, distance, distance.magnitude, projectileHolder[i].collideLayer);
-
-                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < time)
+                if (projectileHolder[i].duration + projectileHolder[i].spawnTime < PropertiesUtility.time)
                 {
                     if (projectileHolder[i].IsLastPath)
                     {
                         DestroyBullet(i);
                     }
                     else {
-                        projectileHolder[i].SetNextPath(time);
+                        projectileHolder[i].SetNextPath(PropertiesUtility.time);
                     }
                 }
 
+                CheckCollision(i, oldPosition, projectileHolder[i].boundSize, distance, distance.magnitude, projectileHolder[i].collideLayer);
             }
         }
     }
 
-    private void CheckCollision(Vector2 p_oldPosition, Vector2 p_bounds, Vector2 p_direction, float p_distance, LayerMask p_laymask)
+    private void CheckCollision(int index, Vector2 p_oldPosition, Vector2 p_bounds, Vector2 p_direction, float p_distance, LayerMask p_laymask)
     {
         float angle = Utility.MathUtility.VectorToAngle(p_direction);
         int hits = Physics2D.BoxCastNonAlloc(p_oldPosition, p_bounds, angle, p_direction, raycastCache, p_distance, p_laymask);
@@ -90,7 +88,11 @@ public class BulletStateCtrl : MonoBehaviour
         if (hits <= 0) return;
         for (var j = 0; j < hits; j++)
         {
-            var collider = raycastCache[j].collider;
+            //var collider = raycastCache[j].collider;
+
+            var interactor = raycastCache[j].collider.GetComponent<BaseInteractor>();
+            if (interactor != null)
+                interactor.React(projectileHolder[index], () => { DestroyBullet(projectileHolder[index]); });
         }
     }
   
@@ -107,6 +109,18 @@ public class BulletStateCtrl : MonoBehaviour
 
         projectileDestroyIndexes.Clear();
     }
+
+    private void DestroyBullet(BulletObject bullet)
+    {
+        if (bullet == null)
+            return;
+
+        int bulletIndex = projectileHolder.IndexOf(bullet);
+        if (bulletIndex >= 0 && bulletIndex < projectileHolder.Count)
+            DestroyBullet(bulletIndex);
+    }
+
+
 
     private void DestroyBullet(int bulletIndex)
     {

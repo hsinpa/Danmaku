@@ -15,8 +15,6 @@ namespace Danmaku.BulletLauncher {
         [SerializeField]
         private DanmakuGraph _bulletGraph;
 
-        [SerializeField]
-        private Transform _target;
 
         private DanmakuEditor.BulletPattern _currentPattern;
         private BulletWave _bulletWave;
@@ -33,7 +31,9 @@ namespace Danmaku.BulletLauncher {
         private void Start()
         {
             baseCharacter = GetComponent<BaseCharacter>();
-            SetUp(_projectileHandler);
+
+            if (_projectileHandler != null)
+                SetUp(_projectileHandler);
         }
 
         public void SetUp(BulletStateCtrl p_projectileHandler)
@@ -69,6 +69,8 @@ namespace Danmaku.BulletLauncher {
         }
 
         private void OnBulletAdded(BulletObject projectile) {
+            projectile.fromCharacter = baseCharacter;
+
             _projectileHandler.AddProjectile(projectile);
         }
 
@@ -78,7 +80,7 @@ namespace Danmaku.BulletLauncher {
         }
 
 
-        public void Fire()
+        public void Fire(Vector3 direction)
         {
             if (_currentPattern == null) return;
             //float time = Time.time;
@@ -89,10 +91,10 @@ namespace Danmaku.BulletLauncher {
 
                 if (_currentPattern.bulletType[i].GetType() == typeof(NormalBullet))
                 {
-                    normalTypeLauncher.Fire(_currentPattern.bulletType[i], _target);
+                    normalTypeLauncher.Fire(_currentPattern.bulletType[i], direction);
                 }
                 else if (_currentPattern.bulletType[i].GetType() == typeof(BeamBullet)) {
-                    beamLauncher.Fire(_currentPattern.bulletType[i], _target);
+                    beamLauncher.Fire(_currentPattern.bulletType[i], direction);
                 }
 
             }
@@ -103,10 +105,13 @@ namespace Danmaku.BulletLauncher {
             RecordTimeTable.Clear();
         }
 
-        private void OnDestroy()
-        {
-            normalTypeLauncher.OnBulletCreate -= OnBulletAdded;
-            beamLauncher.OnBeamCreate -= OnBeamAdded;
+        private void OnDestroy() { 
+        
+            if (normalTypeLauncher != null)
+                normalTypeLauncher.OnBulletCreate -= OnBulletAdded;
+
+            if (beamLauncher != null)
+                beamLauncher.OnBeamCreate -= OnBeamAdded;
         }
     }
 }

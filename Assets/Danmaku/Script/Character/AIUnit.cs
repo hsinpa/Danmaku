@@ -33,7 +33,7 @@ public class AIUnit : BaseCharacter
 
     public void Start()
     {
-        SetBoss(target);
+        //SetBoss(target);
     }
 
     public void SetUp(string p_spawnId, Transform p_projectileHolder, Transform p_target)
@@ -41,18 +41,12 @@ public class AIUnit : BaseCharacter
         _spawnID = p_spawnId;
         projectileHolder = p_projectileHolder;
         target = p_target;
-
-        SetBoss(p_target);
         base.Init();
+
+        danmakuReader.SetUp(projectileHolder.GetComponent<BulletStateCtrl>());
         //SearchPlayer();
     }
 
-    private void SetBoss(Transform p_target)
-    {
-        BossType bose = GetComponent<BossType>();
-        if (bose != null && p_target != null)
-            bose.target = p_target;
-    }
 
     private void SearchPlayer() {
         PathRequestManager.RequestPath(new PathRequest(this.transform.position, target.position, (Vector3[] paths, bool isSuccess) => {
@@ -64,8 +58,8 @@ public class AIUnit : BaseCharacter
 
     private void Update()
     {
-        if (baseBullet != null)
-            baseBullet.Fire(targetDir);
+        if (danmakuReader != null)
+            danmakuReader.Fire(targetDir);
     }
 
     private void FixedUpdate()

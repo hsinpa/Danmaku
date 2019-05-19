@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 436cc338f3b982f46a5eafbeff445338, type: 2}
+  - {fileID: 2100000, guid: 17679812da06b6c4ca5cdb1824409520, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   duration: 0
   collideLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2816
   boundSize: {x: 0, y: 0}
   fromCharacter: {fileID: 0}
   baseBullet: {fileID: 0}

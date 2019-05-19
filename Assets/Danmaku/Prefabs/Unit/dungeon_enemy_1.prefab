@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 900434551495025471}
   - component: {fileID: 900434551495025470}
-  - component: {fileID: 900434551495025469}
   - component: {fileID: 900434551495025440}
   - component: {fileID: 900434551495025441}
   - component: {fileID: 900434551495025442}
+  - component: {fileID: 6218418180378921062}
   m_Layer: 8
   m_Name: dungeon_enemy_1
   m_TagString: Untagged
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4ac89a8e0c1a61444be1e8a88b331eca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,28 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &900434551495025469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900434551495025468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1fd17642b602c4c908db6de576068e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1411318847061768, guid: dfdc15d26a7d30347ac49642675a6937, type: 3}
-  velocity: 4
-  frequency: 1
-  projectileHolder: {fileID: 0}
-  testMode: 0
-  test_angle: 0
-  range: 10
-  radius: 0
-  angular_velocity: 0
-  numberOfBullet: 1
 --- !u!61 &900434551495025440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,7 +135,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900434551495025468}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -170,3 +148,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6218418180378921062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900434551495025468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71897a6926ddf342a8e9cffc08791f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileHandler: {fileID: 0}
+  _beamStateController: {fileID: 0}
+  _bulletGraph: {fileID: 11400000, guid: ebf9fa9dd8f754a40aa84917b2ff1b31, type: 2}

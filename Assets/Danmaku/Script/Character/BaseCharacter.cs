@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Danmaku.BulletLauncher;
 public class BaseCharacter : MonoBehaviour
 {
     [SerializeField]
@@ -13,6 +13,7 @@ public class BaseCharacter : MonoBehaviour
     protected BaseActions actions;
     protected Rigidbody2D rigidBody;
     protected BaseBullet baseBullet;
+    protected DanmakuReader danmakuReader;
 
     public System.Action<BaseCharacter> OnDestroy;
 
@@ -31,6 +32,8 @@ public class BaseCharacter : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         actions = new BaseActions(transform, rigidBody, moveSpeed);
+
+        danmakuReader = GetComponent<DanmakuReader>();
 
         baseBullet = GetComponent<BaseBullet>();
 

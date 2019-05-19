@@ -12,7 +12,7 @@ namespace Danmaku.BulletLauncher
         public System.Action<BeamObject> OnBeamCreate;
 
 
-        public void Fire(DanmakuEditor.BaseBullet baseBullet, Transform target)
+        public void Fire(DanmakuEditor.BaseBullet baseBullet, Vector3 p_direction)
         {
             DanmakuEditor.BeamBullet beamInfo = (DanmakuEditor.BeamBullet)baseBullet;
 

@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5561308a8f59ac940b4b3201aec72b3a, type: 3}
+  m_Name: Danmaku_main_character_01
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 114972794344412454}
+  - {fileID: 114883982525012054}
+  - {fileID: 114489116505633766}
+  - {fileID: 114780709339692514}
+--- !u!114 &114489116505633766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7296b91763e051b4587fbeec56d3c79b, type: 3}
+  m_Name: Bullet Path
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -2232, y: -24}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: 114489116505633766}
+      _typeQualifiedName: DanmakuEditor.BulletPath, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: path
+        node: {fileID: 114780709339692514}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  node: {fileID: 0}
+  type: 1
+  angle_formula: 0
+  angleOnTarget: 1
+  start_delay: 0
+  transition: 0
+  range: 0
+  radius: 0
+  numberOfBullet: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  velocity: 4
+  angular_velocity_formula: 0
+  followTarget: 0
+  lerpPercent: 0
+  frequency: 0
+  duration: 6
+  constraint: 
+--- !u!114 &114780709339692514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615299ce860d37d488375bfe3145ad0b, type: 3}
+  m_Name: Normal Bullet
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1816, y: 72}
+  ports:
+    keys:
+    - path
+    - node
+    values:
+    - _fieldName: path
+      _node: {fileID: 114780709339692514}
+      _typeQualifiedName: DanmakuEditor.BulletPath[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: node
+        node: {fileID: 114489116505633766}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: 114780709339692514}
+      _typeQualifiedName: DanmakuEditor.NormalBullet, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: bulletType
+        node: {fileID: 114883982525012054}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: stupidBullet
+  poolObjectID: bullet_type_01
+  sprite: {fileID: 21300008, guid: 63c662b54ac4e9947812031b1052f913, type: 3}
+  scale: {x: 1, y: 1}
+  fireNumCd: 1
+  loadUpCd: 0
+  path:
+  - {fileID: 114489116505633766}
+  node: {fileID: 0}
+--- !u!114 &114883982525012054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd9edef4340ccc4bbabe9e1353493d7, type: 3}
+  m_Name: Bullet Pattern
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1512, y: 200}
+  ports:
+    keys:
+    - bulletType
+    - patterns
+    values:
+    - _fieldName: bulletType
+      _node: {fileID: 114883982525012054}
+      _typeQualifiedName: DanmakuEditor.BaseBullet[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: node
+        node: {fileID: 114780709339692514}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: patterns
+      _node: {fileID: 114883982525012054}
+      _typeQualifiedName: DanmakuEditor.BulletPattern, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: patterns
+        node: {fileID: 114972794344412454}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  bulletType:
+  - {fileID: 114780709339692514}
+  patterns: {fileID: 0}
+  _id: id
+  name: 
+  duration: 5
+  next_pattern_id: 
+--- !u!114 &114972794344412454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6463f392ea55f4ebdb7250ba0d54d4, type: 3}
+  m_Name: BulletWave
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1176, y: 248}
+  ports:
+    keys:
+    - patterns
+    values:
+    - _fieldName: patterns
+      _node: {fileID: 114972794344412454}
+      _typeQualifiedName: DanmakuEditor.BulletPattern[], Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: patterns
+        node: {fileID: 114883982525012054}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  patterns:
+  - {fileID: 114883982525012054}
+  default_pattern_id: 
