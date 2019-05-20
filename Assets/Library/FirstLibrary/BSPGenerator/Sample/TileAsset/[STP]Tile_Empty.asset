@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: '[STP]Tile_Empty'
   m_EditorClassIdentifier: 
   _tag: 0
-  sprites:
-  - {fileID: 21300002, guid: af12a94bf58e8c44bae872b2ae4cce55, type: 3}
+  tiles:
+  - {fileID: 11400000, guid: c710a8d3f8a3c9a458fce6b1a0d42020, type: 2}

@@ -4,6 +4,8 @@ using UnityEngine;
 using PG;
 using STP;
 using UnityEngine.Tilemaps;
+using Utility;
+
 public class TileRoughRender : MonoBehaviour
 {
     [SerializeField]
@@ -43,39 +45,61 @@ public class TileRoughRender : MonoBehaviour
 
         FloodFillMap(dungeonFullSize, map_offset);
 
-        //for (int i = 0; i < bspComponents.Count; i++) {
+        for (int i = 0; i < bspComponents.Count; i++)
+        {
 
-        //    for (float x = bspComponents[i].spaceRect.xMin; x < bspComponents[i].spaceRect.xMax; x++)
-        //    {
-        //        for (float y = bspComponents[i].spaceRect.yMin; y < bspComponents[i].spaceRect.yMax; y++)
-        //        {
-        //            int xIndex = Mathf.RoundToInt(dungeonSize.x + x);
-        //            int yIndex = Mathf.RoundToInt(dungeonSize.y + y);
-        //            mapData[xIndex, yIndex] = "0";
+            for (float x = bspComponents[i].spaceRect.xMin; x < bspComponents[i].spaceRect.xMax; x++)
+            {
+                for (float y = bspComponents[i].spaceRect.yMin; y < bspComponents[i].spaceRect.yMax; y++)
+                {
+                    int xIndex = Mathf.RoundToInt(dungeonSize.x + x);
+                    int yIndex = Mathf.RoundToInt(dungeonSize.y + y);
+                    mapData[xIndex, yIndex] = "0";
 
-        //            if (bspComponents[i].GetType() == typeof(BSPRoom))
-        //            {
-        //                BSPRoom room = (BSPRoom)bspComponents[i];
-        //                for (int d = 0; d < room.doorPosition.Count; d++)
-        //                {
-        //                    Vector2Int offsetPos = room.doorPosition[d] + new Vector2Int(24, 24);
-        //                    //Debug.Log(offsetPos.x +", "+ offsetPos.y);
-        //                    mapData[offsetPos.x, offsetPos.y] = "1";
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+                    if (bspComponents[i].GetType() == typeof(BSPRoom))
+                    {
+                        BSPRoom room = (BSPRoom)bspComponents[i];
+                        for (int d = 0; d < room.doorPosition.Count; d++)
+                        {
+                            Vector2Int offsetPos = room.doorPosition[d] + new Vector2Int(24, 24);
+                            //Debug.Log(offsetPos.x +", "+ offsetPos.y);
+                            mapData[offsetPos.x, offsetPos.y] = "1";
+                        }
+                    }
+                }
+            }
+        }
 
-        Debug.Log(dungeonFullSize);
         RenderToWorldCanvas(map_offset, dungeonFullSize, mapData);
     }
 
     private void RenderToWorldCanvas(Vector2Int offset, Vector2Int dungeonSize, string[,] mapData) {
+
+        int index = 0;
+
+        TileInfo wallTiles = new TileInfo("1");
+
+
         for (int x = 0; x < dungeonSize.x; x++)
         {
             for (int y = 0; y < dungeonSize.y; y++)
             {
+                //Debug.Log( x +", " + y +","+ mapData[x, y] +", " + (mapData[x, y] == null));
+
+                if (mapData[x, y] == null)
+                    mapData[x, y] = "1";
+
+                var tileSTP = tileSet.GetTile(mapData[x, y]);
+
+                switch (mapData[x, y]) {
+                    case "0":
+                        break;
+
+                    case "1":
+                        wallTiles.Add(x + offset.x, y + offset.y, tileSTP.GetSprite());
+                        break;
+                }
+
                 //GameObject p = Instantiate(tilePrefab);
                 //p.transform.position = new Vector2(x, y) + offset + tile_offset;
                 //SpriteRenderer sRenderer = p.GetComponent<SpriteRenderer>();
@@ -84,7 +108,21 @@ public class TileRoughRender : MonoBehaviour
                 //if (tileSTP != null) {
                 //    sRenderer.sprite = tileSTP.GetSprite();
                 //}
+
+                index++;
             }
+        }
+
+        RenderTileInfo(wallTiles, TileType.Wall);
+    }
+
+    private void RenderTileInfo(TileInfo tileInfo, TileType tileType) {
+        Tilemap tileMapObject = GetTileMap(tileType);
+        if (tileMapObject != null)
+        {
+            tileMapObject.ClearAllTiles();
+
+            tileMapObject.SetTiles(tileInfo.tilePosition, tileInfo.tiles);
         }
     }
 
@@ -131,5 +169,41 @@ public class TileRoughRender : MonoBehaviour
     {
         if (bspMap != null)
             bspMap.OnMapBuild -= RenderTile;
+    }
+
+    private struct TileInfo {
+        public Vector3Int[] tilePosition {
+            get {
+                return _tilePosition.ToArray();
+            }
+        }
+
+        public TileBase[] tiles
+        {
+            get
+            {
+                return _tiles.ToArray();
+            }
+        }
+
+        List<Vector3Int> _tilePosition;
+        List<TileBase> _tiles;
+        public string id;
+
+        Vector3Int reusableVector;
+
+        public TileInfo(string id) {
+            this.id = id;
+            _tilePosition = new List<Vector3Int>();
+            _tiles = new List<TileBase>();
+            reusableVector = Vector3Int.zero;
+        }
+
+        public void Add(int x, int y, TileBase tile) {
+            reusableVector.Set(x, y, 0);
+
+            _tilePosition.Add(reusableVector);
+            _tiles.Add(tile);
+        }
     }
 }
