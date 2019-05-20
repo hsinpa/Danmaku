@@ -7,6 +7,15 @@ using Utility;
 namespace PG {
 	public class BSPRoom : BSPMapComponent {
 
+        public enum RoomType {
+            Normal,
+            End,
+            Start
+        }
+
+        public RoomType roomType;
+
+
         public List<Vector2Int> doorPosition;
 
 		public BSPRoom(Rect p_holderRect) {
@@ -16,7 +25,6 @@ namespace PG {
 
             doorPosition = new List<Vector2Int>();
             new GridHolder(spaceRect, 10);
-
         }
 
         public void FindDoorIntersection(List<BSPMapComponent> corridors, int corridorSize) {

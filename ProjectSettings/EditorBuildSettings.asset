@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Danmaku/Danmaku_Test.unity
     guid: 42a369aa716090f46aed61dc54d69689
+  - enabled: 1
+    path: Assets/Danmaku/Playground.unity
+    guid: 9f5f287c7d8cbdf47970ad22b24d9e03
   m_configObjects: {}

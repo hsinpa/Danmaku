@@ -4,17 +4,6 @@ using UnityEngine;
 
 namespace Utility {
 
-    public static class ArrayExtensions
-    {
-        public static void Fill<T>(this T[] originalArray, T with)
-        {
-            for (int i = 0; i < originalArray.Length; i++)
-            {
-                originalArray[i] = with;
-            }
-        }
-    }
-
     public class GeneralUtility
     {
 
@@ -23,6 +12,15 @@ namespace Utility {
 
             if (p_action != null)
                 p_action();
+        }
+
+        public static Vector2 PixelPerfectClamp(Vector2 moveVector, float pixelsPerUnit) {
+            Vector2 vectorInPixels = new Vector2(
+                Mathf.RoundToInt(moveVector.x * pixelsPerUnit),
+                Mathf.RoundToInt(moveVector.y * pixelsPerUnit)
+                );
+
+            return vectorInPixels / pixelsPerUnit;
         }
 
 

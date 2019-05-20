@@ -13,6 +13,7 @@ public class BaseCharacter : MonoBehaviour
     protected BaseActions actions;
     protected Rigidbody2D rigidBody;
     protected BaseBullet baseBullet;
+    protected SpriteRenderer spriteRenderer;
     protected DanmakuReader danmakuReader;
 
     public System.Action<BaseCharacter> OnDestroy;
@@ -30,8 +31,10 @@ public class BaseCharacter : MonoBehaviour
     // Start is called before the first frame update
     protected void Init()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
-        actions = new BaseActions(transform, rigidBody, moveSpeed);
+
+        actions = new BaseActions(transform, rigidBody, moveSpeed, spriteRenderer.sprite.pixelsPerUnit);
 
         danmakuReader = GetComponent<DanmakuReader>();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utility;
 using Pooling;
-
+using PG;
 [System.Serializable]
 public class LevelManager : MonoBehaviour
 {
@@ -39,12 +39,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void SetUp(TilemapReader tilemapReader) {
+    public void SetUp(TilemapReader tilemapReader, BSP bspGenerator ) {
         _tilemapReader = tilemapReader;
         waveIndex = -1;
         total_aiUnit = new List<AIUnit>();
 
-        player.SetUp(projectileHolder);
+        player.SetUp(projectileHolder, bspGenerator.startRoom.spaceRect.center);
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
         PreparePoolingObject(themeObject);

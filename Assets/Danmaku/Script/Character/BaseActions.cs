@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 public class BaseActions
 {
@@ -9,10 +10,15 @@ public class BaseActions
     private Transform _transform;
     private Rigidbody2D rigidBody;
 
-    public BaseActions(Transform transform, Rigidbody2D rigidBody, float speed) {
+    private Vector2 move, oldPosition;
+
+    private float pixelPerUnit;
+
+    public BaseActions(Transform transform, Rigidbody2D rigidBody, float speed, float pixelperUnit) {
         this._transform = transform;
         this.rigidBody = rigidBody;
         this.speed = speed;
+        this.pixelPerUnit = pixelperUnit;
     }
 
     public void Fire() {
@@ -23,7 +29,10 @@ public class BaseActions
     {
         if (_transform == null) return;
 
-        this.rigidBody.MovePosition(_transform.position + Time.deltaTime * speed * direction);
+        move = GeneralUtility.PixelPerfectClamp(Time.deltaTime * speed * direction, this.pixelPerUnit);
+        oldPosition = GeneralUtility.PixelPerfectClamp(_transform.position, this.pixelPerUnit);
+
+        this.rigidBody.MovePosition(move + oldPosition);
 
         //_transform.Translate(Time.deltaTime * speed * direction);
     }

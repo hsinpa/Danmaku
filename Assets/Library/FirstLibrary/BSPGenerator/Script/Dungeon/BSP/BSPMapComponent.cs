@@ -6,5 +6,14 @@ namespace PG {
 	public class BSPMapComponent {
 		public Rect spaceRect;
 		public int display_order;
-	}
+
+        public float area
+        {
+            get
+            {
+                return spaceRect.width * spaceRect.height;
+            }
+        }
+
+    }
 }

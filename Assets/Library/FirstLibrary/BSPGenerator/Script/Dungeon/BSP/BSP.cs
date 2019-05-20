@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DataStructure;
+using System.Linq;
 
 namespace PG {
 	public class BSP : MonoBehaviour {
@@ -11,7 +12,10 @@ namespace PG {
 
         public System.Action<Vector2Int, List<BSPMapComponent>> OnMapBuild;
 
-		private TreeMap _treeMap;
+        public BSPRoom startRoom;
+        public BSPRoom existRoom;
+
+        private TreeMap _treeMap;
 
         [SerializeField]
         private Vector2Int dungeonSize;
@@ -19,20 +23,20 @@ namespace PG {
         [SerializeField, Range(1, 10)]
         private int bspIteration;
 
-		void Start() {
-			SetUp(dungeonSize.x, dungeonSize.y);
-			GenerateMap(bspIteration);
+		//void Start() {
+		//	SetUp(dungeonSize.x, dungeonSize.y);
+		//	GenerateMap(bspIteration);
+		//}
+
+		public void SetUp() {
+			_width = dungeonSize.x;
+			_height = dungeonSize.y;
 		}
 
-		public void SetUp(int p_width, int p_height) {
-			_width = p_width;
-			_height = p_height;
-		}
-
-		public void GenerateMap(int p_iteration) {
+		public void GenerateMap() {
 			_treeMap = new TreeMap(Vector2.zero, _width, _height);
 
-			for (int i = 0; i < p_iteration; i++) {
+			for (int i = 0; i < bspIteration; i++) {
 				_treeMap.rootNode.Divide();
 			}
 
@@ -42,38 +46,42 @@ namespace PG {
 			_treeComponents = GetAllMapComponent();
             //FindDoors(_treeComponents);
 
+            var corridors = _treeComponents.FindAll(x => x.GetType() == typeof(BSPCorridor));
+            var rooms = _treeComponents.FindAll(x => x.GetType() == typeof(BSPRoom));
+
+            AssignExistStartRoom(rooms, (_width +  _height) / 2f );
+
             if (OnMapBuild != null)
                 OnMapBuild(dungeonSize, _treeComponents);
-
         }
 
-		void OnDrawGizmos()
-		{
-			if (_treeMap == null) return;
-			for (int i = 0 ; i < _treeMap.all_room_parent.Count; i++) {
-				TreeNode node = _treeMap.all_room_parent[i];
-				Gizmos.color = Color.blue;
-				Gizmos.DrawWireCube(node.leafs[0].rect.center, node.leafs[0].rect.size);
-				Gizmos.DrawWireCube(node.leafs[1].rect.center, node.leafs[1].rect.size);
-			}
-			
-			if (_treeComponents.Count > 0) {
-				for (int i = 0 ; i < _treeComponents.Count; i++) {
-					BSPMapComponent node = _treeComponents[i];
+        //void OnDrawGizmos()
+        //{
+        //	if (_treeMap == null) return;
+        //	for (int i = 0 ; i < _treeMap.all_room_parent.Count; i++) {
+        //		TreeNode node = _treeMap.all_room_parent[i];
+        //		Gizmos.color = Color.blue;
+        //		Gizmos.DrawWireCube(node.leafs[0].rect.center, node.leafs[0].rect.size);
+        //		Gizmos.DrawWireCube(node.leafs[1].rect.center, node.leafs[1].rect.size);
+        //	}
 
-					if (node.GetType() == typeof(BSPRoom)) {
-						Gizmos.color = Color.red;
-						Gizmos.DrawWireCube(node.spaceRect.center, node.spaceRect.size);
-					}
-					else if (node.GetType() == typeof(BSPCorridor)) {
-						Gizmos.color = Color.green;
-						Gizmos.DrawWireCube(node.spaceRect.center, node.spaceRect.size);
-					}
-				}
-			}
-		}
+        //	if (_treeComponents.Count > 0) {
+        //		for (int i = 0 ; i < _treeComponents.Count; i++) {
+        //			BSPMapComponent node = _treeComponents[i];
 
-		public List<BSPMapComponent> GetAllMapComponent() {
+        //			if (node.GetType() == typeof(BSPRoom)) {
+        //				Gizmos.color = Color.red;
+        //				Gizmos.DrawWireCube(node.spaceRect.center, node.spaceRect.size);
+        //			}
+        //			else if (node.GetType() == typeof(BSPCorridor)) {
+        //				Gizmos.color = Color.green;
+        //				Gizmos.DrawWireCube(node.spaceRect.center, node.spaceRect.size);
+        //			}
+        //		}
+        //	}
+        //}
+
+        public List<BSPMapComponent> GetAllMapComponent() {
 			Stack<TreeNode> nodes = new Stack<TreeNode>();
 			List<BSPMapComponent> mapComps = new List<BSPMapComponent>();
 
@@ -98,6 +106,20 @@ namespace PG {
             }
 			return mapComps;
 		}
+
+        private void AssignExistStartRoom(List<BSPMapComponent> rooms, float minDistance) {
+            if (rooms.Count > 2) {
+                //Find exist
+                var sorted = rooms.OrderByDescending(x => x.area).ToList();
+                this.existRoom = (BSPRoom) sorted[0];
+
+                var startRoomCandidate = rooms.FindAll(x => (x.spaceRect.center - existRoom.spaceRect.center).magnitude > minDistance).ToList();
+                this.startRoom = (BSPRoom) startRoomCandidate[Random.Range(0, startRoomCandidate.Count)];
+
+                startRoom.roomType = BSPRoom.RoomType.Start;
+                existRoom.roomType = BSPRoom.RoomType.End;
+            }
+        }
 
         private void FindDoors(List<BSPMapComponent> p_components) {
             var corridors = p_components.FindAll(x => x.GetType() == typeof(BSPCorridor));

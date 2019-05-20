@@ -16,7 +16,7 @@ public class PlayerUnit : BaseCharacter
     private Animator weaponAnim;
     private SwordInteractor swordInteractor;
 
-    public void SetUp(Transform p_projectileHolder)
+    public void SetUp(Transform p_projectileHolder, Vector3 startPosition)
     {
         projectileHolder = p_projectileHolder;
 
@@ -28,6 +28,8 @@ public class PlayerUnit : BaseCharacter
             swordInteractor = weaponSprite.GetComponentInChildren<SwordInteractor>();
             swordInteractor.SetUp(this, ReverseBullet);
         }
+
+        this.transform.position = startPosition;
 
         base.Init();
     }
