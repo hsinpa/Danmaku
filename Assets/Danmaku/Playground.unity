@@ -411,7 +411,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 916591026}
   projectileHolder: {fileID: 237078561}
-  waves: []
+  waves:
+  - enemySegments:
+    - prefab: {fileID: 900434551495025468, guid: f18c3f5846c36be478b5cafbdfb0d658,
+        type: 3}
+      spawn_number: 5
+    remaining_spawn_point: 0.1
   themeObject: {fileID: 11400000, guid: 70f7f8a75cba3b546bac0ca6a98a0c76, type: 2}
 --- !u!114 &240813467
 MonoBehaviour:
@@ -3043,6 +3048,7 @@ MonoBehaviour:
   tile_offset: {x: 0.5, y: 0.5}
   tileSet: {fileID: 11400000, guid: 61a532e734eda414ebb5cc7ae901e2c0, type: 2}
   tileGrid: {fileID: 658379477}
+  bspMap: {fileID: 0}
 --- !u!114 &1455049439
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class BaseCharacter : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
-
+  
         actions = new BaseActions(transform, rigidBody, moveSpeed, spriteRenderer.sprite.pixelsPerUnit);
 
         danmakuReader = GetComponent<DanmakuReader>();

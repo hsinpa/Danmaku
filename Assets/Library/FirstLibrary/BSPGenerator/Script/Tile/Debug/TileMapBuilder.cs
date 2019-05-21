@@ -11,6 +11,7 @@ public class TileMapBuilder : MonoBehaviour
     [SerializeField]
     private Vector2 tile_offset;
     private Vector2Int map_offset;
+    private Vector2Int dungeonFullSize;
 
     [SerializeField]
     private TileSTPSet tileSet;
@@ -45,7 +46,7 @@ public class TileMapBuilder : MonoBehaviour
 
         map_offset = new Vector2Int(Mathf.RoundToInt( -dungeonSize.x), Mathf.RoundToInt(-dungeonSize.y));
 
-        var dungeonFullSize = new Vector2Int(dungeonSize.x * 2, dungeonSize.y * 2);
+        dungeonFullSize = new Vector2Int(dungeonSize.x * 2, dungeonSize.y * 2);
         //1 = wall , 0 = empty
         mapDetailData = new BSPTile[dungeonFullSize.x, dungeonFullSize.y];
 
@@ -122,6 +123,17 @@ public class TileMapBuilder : MonoBehaviour
         }
 
         RenderTileInfo(wallTiles, TileType.Wall);
+    }
+
+    public BSPTile FindRoomByPosition(Vector2 p_worldPos) {
+        Vector2 normalizedIndex = p_worldPos - map_offset;
+        Vector2Int index = new Vector2Int(Mathf.RoundToInt(normalizedIndex.x), Mathf.RoundToInt(normalizedIndex.y) );
+
+        if (index.x >= 0 && index.y >= 0 && index.x < dungeonFullSize.x && index.y < dungeonFullSize.y) {
+            return mapDetailData[index.x, index.y];
+        }
+
+        return default(BSPTile);
     }
 
     private void RenderTileInfo(TileInfo tileInfo, TileType tileType) {

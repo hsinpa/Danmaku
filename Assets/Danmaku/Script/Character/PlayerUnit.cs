@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PG;
 public class PlayerUnit : BaseCharacter
 {
 
@@ -15,11 +15,14 @@ public class PlayerUnit : BaseCharacter
 
     private Animator weaponAnim;
     private SwordInteractor swordInteractor;
+    private TileMapBuilder tilemapBuilder;
 
-    public System.Action OnEnterRoom;
+    BSPTile currentBSPTile;
+    public System.Action<BSPTile> OnChangeRoom;
 
-    public void SetUp(Transform p_projectileHolder, Vector3 startPosition)
+    public void SetUp(TileMapBuilder tilemapBuilder, Transform p_projectileHolder, Vector3 startPosition)
     {
+        this.tilemapBuilder = tilemapBuilder;
         projectileHolder = p_projectileHolder;
 
         this.unitSprite = GetComponent<SpriteRenderer>();
@@ -57,6 +60,19 @@ public class PlayerUnit : BaseCharacter
             //    danmakuReader.Fire(direction);
 
             SwingSword(direction);
+        }
+
+        CheckPlayerEvent();
+
+    }
+
+    private void CheckPlayerEvent() {
+        var bspTile = tilemapBuilder.FindRoomByPosition(transform.transform.position);
+
+        if (bspTile.bspComponent !=  this.currentBSPTile.bspComponent) {
+            this.currentBSPTile = bspTile;
+            if (OnChangeRoom != null)
+                OnChangeRoom(bspTile);
         }
     }
 

@@ -44,11 +44,12 @@ public class LevelManager : MonoBehaviour
         waveIndex = -1;
         total_aiUnit = new List<AIUnit>();
 
-        player.SetUp(projectileHolder, tileMapBuilder.bspMap.startRoom.spaceRect.center);
+        player.SetUp(tileMapBuilder, projectileHolder, tileMapBuilder.bspMap.startRoom.spaceRect.center);
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
         PreparePoolingObject(themeObject);
-        StartCoroutine( Spawn(1, PrepareWave() ) );
+
+        player.OnChangeRoom += OnPlayerEnterRoom;
     }
 
     private void PreparePoolingObject(STPTheme p_themeObject) {
@@ -60,7 +61,16 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public List<AIUnit> PrepareWave() {
+    private void OnPlayerEnterRoom(BSPTile bspTile) {
+        if (bspTile.bspComponent == null) return;
+
+        if (typeof(BSPRoom) == bspTile.bspComponent.GetType()) {
+            var room =(BSPRoom) bspTile.bspComponent;
+            StartCoroutine(Spawn(1, PrepareWave(), room));
+        }
+    }
+
+    private List<AIUnit> PrepareWave() {
 
         List<AIUnit> inactiveUnit = new List<AIUnit>();
 
@@ -87,10 +97,12 @@ public class LevelManager : MonoBehaviour
         return inactiveUnit;
     }
 
-    public IEnumerator Spawn(float p_delayTime, List<AIUnit> p_inactiveUnits) {
+    private IEnumerator Spawn(float p_delayTime, List<AIUnit> p_inactiveUnits, BSPRoom p_bspRoom) {
         yield return new WaitForSeconds(p_delayTime);
 
         List<Node> emptyNodes = _tilemapReader.GetEmptyNode();
+
+       
         if (emptyNodes != null && emptyNodes.Count > 0) {
             int randomSpawnUnit = Random.Range(0, 3);
 
@@ -99,7 +111,10 @@ public class LevelManager : MonoBehaviour
                     AIUnit unit = p_inactiveUnits[0];
                     Node randomNode = emptyNodes[Random.Range(0, emptyNodes.Count)];
 
-                    unit.transform.position = randomNode.worldPosition;
+                    int randomXIndex = Random.Range(0, Mathf.RoundToInt(p_bspRoom.spaceRect.width));
+                    int randomYIndex = Random.Range(0, Mathf.RoundToInt(p_bspRoom.spaceRect.height));
+
+                    unit.transform.position = new Vector2(randomXIndex + p_bspRoom.spaceRect.x, randomYIndex + p_bspRoom.spaceRect.y);
                     unit.gameObject.SetActive(true);
                     unit.SetUp(waveIndex.ToString(), projectileHolder, player.transform);
                     unit.OnDestroy += OnAIUnitDestroy;
@@ -113,7 +128,7 @@ public class LevelManager : MonoBehaviour
 
         float randomDelayTime = Random.Range(0.3f, 3f);
         if (p_inactiveUnits.Count > 0)
-            StartCoroutine(Spawn(randomDelayTime, p_inactiveUnits));
+            StartCoroutine(Spawn(randomDelayTime, p_inactiveUnits, p_bspRoom));
     }
 
     private GameObject InstantiateUnit(GameObject p_prefab) {
@@ -138,7 +153,7 @@ public class LevelManager : MonoBehaviour
                 Destroy(p_unit.gameObject);
 
                 if (total_aiUnit.Count <= 0 || total_aiUnit_count / (float)totalUnitInWave <= waves[waveIndex].remaining_spawn_point) {
-                    StartCoroutine(Spawn(1, PrepareWave()));
+                    //StartCoroutine(Spawn(1, PrepareWave()));
                 }
             }
         }
