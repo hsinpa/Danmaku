@@ -20,19 +20,20 @@ public class GameManager : MonoBehaviour
     private Pathfinding pathfinding;
     private TilemapReader tilemapReader;
     private LevelManager levelManager;
-    private PG.BSP bspManager;
+    private TileMapBuilder tileMapBuilder;
 
     private Transform ProjectileHolder;
 
     private void Awake()
     {
-        bspManager = GetComponentInChildren<PG.BSP>();
+        tileMapBuilder = GetComponentInChildren<TileMapBuilder>();
         tilemapReader = GetComponentInChildren<TilemapReader>();
         pathfinding = GetComponentInChildren<Pathfinding>();
         levelManager = GetComponent<LevelManager>();
 
         ProjectileHolder = this.transform.Find("Projectile");
 
+        tileMapBuilder.SetUp();
     }
 
     private void Start()
@@ -42,12 +43,11 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        bspManager.SetUp();
-        bspManager.GenerateMap();
+        tileMapBuilder.Generate();
 
         tilemapReader.SetUp();
         pathfinding.SetUp(tilemapReader);
-        levelManager.SetUp(tilemapReader, bspManager);
+        levelManager.SetUp(tilemapReader, tileMapBuilder);
     }
 
 }

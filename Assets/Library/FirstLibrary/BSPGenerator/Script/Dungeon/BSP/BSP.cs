@@ -17,8 +17,7 @@ namespace PG {
 
         private TreeMap _treeMap;
 
-        [SerializeField]
-        private Vector2Int dungeonSize;
+        public Vector2Int dungeonSize;
 
         [SerializeField, Range(1, 10)]
         private int bspIteration;

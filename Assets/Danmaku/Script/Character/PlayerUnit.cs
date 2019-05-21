@@ -16,6 +16,8 @@ public class PlayerUnit : BaseCharacter
     private Animator weaponAnim;
     private SwordInteractor swordInteractor;
 
+    public System.Action OnEnterRoom;
+
     public void SetUp(Transform p_projectileHolder, Vector3 startPosition)
     {
         projectileHolder = p_projectileHolder;

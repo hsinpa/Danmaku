@@ -39,12 +39,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void SetUp(TilemapReader tilemapReader, BSP bspGenerator ) {
+    public void SetUp(TilemapReader tilemapReader, TileMapBuilder tileMapBuilder) {
         _tilemapReader = tilemapReader;
         waveIndex = -1;
         total_aiUnit = new List<AIUnit>();
 
-        player.SetUp(projectileHolder, bspGenerator.startRoom.spaceRect.center);
+        player.SetUp(projectileHolder, tileMapBuilder.bspMap.startRoom.spaceRect.center);
         enemyHolder = transform.Find("Unit/EnemyHolder");
 
         PreparePoolingObject(themeObject);
