@@ -23,7 +23,7 @@ public class SwordInteractor : MonoBehaviour, BaseInteractor
     public void React(BaseProjectileObject projectile_object, System.Action projectileDestroyEvent)
     {
 
-        if (projectile_object.fromCharacter == _unit) return;
+        if (projectile_object.fromCharacter == _unit || projectile_object.fromCharacter == null) return;
 
         if (lastAttackTime + attackPeriod > Time.time) {
            

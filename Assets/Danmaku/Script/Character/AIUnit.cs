@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIUnit : BaseCharacter
+public class AIUnit : BaseCharacter, BaseInteractor
 {
     public Transform target;
 
@@ -92,5 +93,14 @@ public class AIUnit : BaseCharacter
 
             actions.Move((paths[moveIndex] - transform.position).normalized);
         }
+    }
+
+    public void React(BaseProjectileObject projectile_object, Action OnBulletDestroy)
+    {
+        if (projectile_object.fromCharacter != null && projectile_object.fromCharacter.team == team) return;
+
+        if (OnDestroy != null)
+            OnDestroy(this);
+
     }
 }

@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
         if (bspTile.bspComponent == null) return;
 
         if (typeof(BSPRoom) == bspTile.bspComponent.GetType()) {
+            waveIndex = -1;
             var room =(BSPRoom) bspTile.bspComponent;
             StartCoroutine(Spawn(1, PrepareWave(), room));
         }
@@ -102,7 +103,6 @@ public class LevelManager : MonoBehaviour
 
         List<Node> emptyNodes = _tilemapReader.GetEmptyNode();
 
-       
         if (emptyNodes != null && emptyNodes.Count > 0) {
             int randomSpawnUnit = Random.Range(0, 3);
 
