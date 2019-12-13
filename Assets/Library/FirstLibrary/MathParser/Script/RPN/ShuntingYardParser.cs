@@ -63,7 +63,6 @@ namespace MathExpParser
                             Debug.LogError("Function " + t._value + " is not define");
                             break;
                         }
-
                     }
                 }
             }

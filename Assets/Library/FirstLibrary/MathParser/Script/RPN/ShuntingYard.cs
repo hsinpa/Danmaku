@@ -10,8 +10,8 @@ namespace MathExpParser
     public class ShuntingYard
     {
         #region Parameters
-        private List<Token> outputQueue;
-        private Stack<Token> operatorStack;
+        //private List<Token> outputQueue;
+        //private Stack<Token> operatorStack;
 
         //private OutStack outputStack;
 
@@ -33,15 +33,16 @@ namespace MathExpParser
         };
         #endregion
 
-        public ShuntingYard() {
-            outputQueue = new List<Token>();
-            operatorStack = new Stack<Token>();
-            //outputStack = new OutStack();
-        }
+        //public ShuntingYard() {
+        //    outputQueue = new List<Token>();
+        //    operatorStack = new Stack<Token>();
+        //}
 
         public List<Token> Parse(List<Token> p_tokens)
         {
-            Clear();
+            List<Token> outputQueue = new List<Token>();
+            Stack<Token> operatorStack = new Stack<Token>();
+
             int tokenLength = p_tokens.Count;
 
             for (int i = 0; i < tokenLength; i++)
@@ -135,6 +136,8 @@ namespace MathExpParser
             while (operatorStack.Count > 0)
                 outputQueue.Add(operatorStack.Pop());
 
+            operatorStack = null;
+
             return outputQueue;
         }
 
@@ -154,13 +157,6 @@ namespace MathExpParser
             }
 
             return 4;
-        }
-
-
-        private void Clear()
-        {
-            outputQueue = new List<Token>();
-            operatorStack = new Stack<Token>();
         }
 
         private class OutStack {
